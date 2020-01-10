@@ -1,7 +1,7 @@
 import {BrowserRouter, Route, Switch} from "react-router-dom";
 import React from 'react';
 import './App.scss';
-import {Home} from "./Home/Home";
+import Home from "./Home/Home";
 import {Questionnaire} from "./Questionnaire/Questionnaire";
 
 const App: React.FC = () => {
