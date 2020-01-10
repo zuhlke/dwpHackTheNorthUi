@@ -7,7 +7,7 @@ interface ButtonProps {
 }
 
 const Button = (props: ButtonProps): ReactElement => (
-    <button onClick={props.onClick}>
+    <button className="govuk-button" data-module="govuk-button" onClick={props.onClick}>
         <span>
             {props.text}
         </span>
