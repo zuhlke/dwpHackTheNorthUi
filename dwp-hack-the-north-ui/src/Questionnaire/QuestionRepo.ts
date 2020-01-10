@@ -1,5 +1,4 @@
 import { Question } from './Question';
-import * as _ from "lodash";
 
 export interface QuestionRepository {
     get(id: number): Question | undefined;
@@ -7,10 +6,12 @@ export interface QuestionRepository {
 }
 
 export class InMemoryQuestionRepository implements QuestionRepository {
-    private questions: Question[];
+    private questions: Map<number, Question> = new Map<number, Question>();
 
     private constructor(questions: Question[]) {
-        this.questions = questions;
+        for (const question of questions) {
+            this.questions.set(question.getId(), question);
+        }
     }
 
     public static from(questions: Question[]): QuestionRepository {
@@ -18,19 +19,10 @@ export class InMemoryQuestionRepository implements QuestionRepository {
     }
 
     public get(id: number): Question | undefined {
-        let result: Question | undefined = undefined;
-
-        for (const question of this.questions) {
-            if (id === question.getId()) {
-                result = question;
-                break;
-            }
-        }
-
-        return result;
+        return this.questions.get(id);
     }
 
     public getAll(): Question[] {
-        return _.clone(this.questions);
+        return Array.from(this.questions.values());
     }
 }
