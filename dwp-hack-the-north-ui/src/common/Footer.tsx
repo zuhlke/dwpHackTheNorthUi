@@ -1,6 +1,6 @@
 import React from 'react'
 
-const Footer = () => {
+const Footer: React.FC = () => {
     return (
         <footer className="govuk-footer " role="contentinfo">
             <div className="govuk-width-container ">
@@ -28,6 +28,6 @@ const Footer = () => {
             </div>
         </footer>
     )
-}
+};
 
 export default Footer;
