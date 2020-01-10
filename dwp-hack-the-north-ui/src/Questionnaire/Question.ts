@@ -10,4 +10,8 @@ export class Question {
     public static of(id: number, questionString: string): Question {
         return new Question(id, questionString);
     }
+
+    public getId(): number {
+        return this.id;
+    }
 }
