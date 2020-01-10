@@ -1,5 +1,5 @@
 import React, {ReactElement} from 'react';
-import {Link, RouteComponentProps, withRouter} from 'react-router-dom';
+import {RouteComponentProps, withRouter} from 'react-router-dom';
 import Button from "../common/Button/Button";
 
 interface HomeProps extends RouteComponentProps {
