@@ -3,9 +3,12 @@ import React from 'react';
 import './App.scss';
 import Home from "./Home/Home";
 import {Questionnaire} from "./Questionnaire/Questionnaire";
+import Header from "./common/Header";
+import Footer from "./common/Footer";
 
 const App: React.FC = () => {
     return <div>
+        <Header/>
         <div className="App">
             <BrowserRouter>
                 <Switch>
@@ -14,6 +17,7 @@ const App: React.FC = () => {
                 </Switch>
             </BrowserRouter>
         </div>
+        <Footer/>
     </div>
 };
 

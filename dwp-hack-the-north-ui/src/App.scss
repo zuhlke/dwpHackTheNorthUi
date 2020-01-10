@@ -1,3 +1,5 @@
+@import "~govuk-frontend/govuk/all";
+
 .App {
   text-align: center;
 }
@@ -35,4 +37,17 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+.govuk-footer__copyright-logo{
+  display: inline-block;
+  min-width: 125px;
+  padding-top: 112px;
+  background-image: url("~govuk-frontend/govuk/assets/images/govuk-crest.png");
+  background-repeat: no-repeat;
+  background-position: 50% 0%;
+  background-size: 125px 102px;
+  text-align: center;
+  text-decoration: none;
+  white-space: nowrap;
 }
