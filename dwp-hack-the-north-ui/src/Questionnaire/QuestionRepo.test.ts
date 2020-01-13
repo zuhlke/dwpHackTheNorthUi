@@ -1,11 +1,14 @@
 import { Question } from './Question';
 import { QuestionRepository, InMemoryQuestionRepository } from './QuestionRepo';
 
-const questionOne: Question = Question.of(1, 'Is this a good test?');
-const questionTwo: Question = Question.of(2, 'What is your name?');
+export const questionOneId = 1;
+export const questionTwoId = 2;
+
+export const questionOne: Question = Question.of(questionOneId, 'Is this a good test?');
+export const questionTwo: Question = Question.of(questionTwoId, 'What is your name?');
 
 const expectedQuestions: Question[] = [questionOne, questionTwo];
-const questionRepo: QuestionRepository = InMemoryQuestionRepository.from(expectedQuestions);
+export const questionRepo: QuestionRepository = InMemoryQuestionRepository.from(expectedQuestions);
 
 test('All questions can be obtained', () => {
     expect(questionRepo.getAll()).toStrictEqual(expectedQuestions);
