@@ -1,7 +1,9 @@
 import { Answer } from './Answer';
 import { Question } from './Question';
 import { QuestionRepository } from './QuestionRepo';
+
 export interface AnswerRepository {
+    add(answer: Answer): number;
     getAll(): Answer[];
     get(answerId: number): Answer | undefined;
     getQuestionFromAnswerId(answerId: number): Question | undefined;
@@ -21,6 +23,11 @@ export class InMemoryAnswerRepository implements AnswerRepository {
 
     public static of(questionRepo: QuestionRepository, answerArray: Answer[]): AnswerRepository {
         return new InMemoryAnswerRepository(questionRepo, answerArray);
+    }
+
+    add(answer: Answer): number {
+        this.answers.set(answer.getId(), answer);
+        return answer.getId();
     }
 
     getAll(): Answer[] {
