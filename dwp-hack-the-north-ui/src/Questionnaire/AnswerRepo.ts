@@ -1,9 +1,10 @@
-import { Answer } from './Answer';
+import * as _ from 'lodash';
+import { Answer, UNDEFINED_ANSWER } from './Answer';
 import { Question } from './Question';
 import { QuestionRepository } from './QuestionRepo';
 
 export interface AnswerRepository {
-    add(answer: Answer): number;
+    add(answer: Answer): number | undefined;
     getAll(): Answer[];
     get(answerId: number): Answer | undefined;
     getQuestionFromAnswerId(answerId: number): Question | undefined;
@@ -19,21 +20,32 @@ export class InMemoryAnswerRepository implements AnswerRepository {
         for (const answer of answerArray) {
             this.answers.set(answer.getId(), answer);
         }
+
+        this.answers.set(-1, Answer.of(-1, -1, 'You should not get this Answer!'));
     }
 
     public static of(questionRepo: QuestionRepository, answerArray: Answer[]): AnswerRepository {
         return new InMemoryAnswerRepository(questionRepo, answerArray);
     }
 
-    add(answer: Answer): number {
-        this.answers.set(answer.getId(), answer);
-        return answer.getId();
+    add(answer: Answer): number | undefined {
+        let result: number | undefined = undefined;
+
+        if (this.answers.get(answer.getId()) === undefined) {
+            this.answers.set(answer.getId(), answer);
+            result = answer.getId();
+        } else if (answer.getId() === UNDEFINED_ANSWER) {
+            result = this.getNextKey();
+            this.answers.set(result, Answer.of(result, answer.getQuestionId(), answer.getValue()));
+        }
+
+        return result;
     }
 
     getAll(): Answer[] {
         return Array.from(this.answers.values());
     }
-    
+
     get(answerId: number): Answer | undefined {
         return this.answers.get(answerId);
     }
@@ -44,6 +56,17 @@ export class InMemoryAnswerRepository implements AnswerRepository {
 
         if (answer !== undefined) {
             result = this.questionRepo.get(answer.getQuestionId());
+        }
+
+        return result;
+    }
+
+    private getNextKey(): number {
+        let result = 0;
+        const highestKey: number | undefined = _.maxBy(Array.from(this.answers.keys()), (object) => object);
+
+        if (highestKey !== undefined) {
+            result = highestKey + 1;
         }
 
         return result;

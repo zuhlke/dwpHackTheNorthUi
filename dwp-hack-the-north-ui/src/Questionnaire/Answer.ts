@@ -1,3 +1,5 @@
+export const UNDEFINED_ANSWER = -1;
+
 export class Answer {
     private readonly id: number;
     private readonly questionId: number;
@@ -13,11 +15,23 @@ export class Answer {
         return new Answer(id, questionId, answer);
     }
 
+    public static new(questionId: number, answer: string): Answer {
+        return new Answer(UNDEFINED_ANSWER, questionId, answer);
+    }
+
     public getId(): number {
         return this.id;
     }
 
+    public hasId(): boolean {
+        return this.id !== -1;
+    }
+
     public getQuestionId(): number {
         return this.questionId;
+    }
+
+    public getValue(): string {
+        return this.answer;
     }
 }
