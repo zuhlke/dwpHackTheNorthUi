@@ -21,7 +21,7 @@ export class InMemoryAnswerRepository implements AnswerRepository {
             this.answers.set(answer.getId(), answer);
         }
 
-        this.answers.set(-1, Answer.of(-1, -1, 'You should not get this Answer!'));
+        this.answers.set(-1, Answer.of(-1, -1, 0));
     }
 
     public static of(questionRepo: QuestionRepository, answerArray: Answer[]): AnswerRepository {
