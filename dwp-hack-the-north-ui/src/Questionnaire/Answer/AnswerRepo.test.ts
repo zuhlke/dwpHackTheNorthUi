@@ -6,9 +6,9 @@ export const answerOneId = 1;
 export const answerTwoId = 2;
 export const answerThreeId = 3;
 
-export const answerOne: Answer = Answer.of(answerOneId, questionOneId, 'true');
-export const answerTwo: Answer = Answer.of(answerTwoId, questionTwoId, 'John');
-export const answerThree: Answer = Answer.of(answerThreeId, questionOneId, 'true');
+export const answerOne: Answer = Answer.of(answerOneId, questionOneId, 100);
+export const answerTwo: Answer = Answer.of(answerTwoId, questionTwoId, 200);
+export const answerThree: Answer = Answer.of(answerThreeId, questionOneId, 150);
 
 const answers: Answer[] = [
     answerOne,
@@ -31,7 +31,7 @@ test('An unknown ID returns an undefined Answer', () => {
 }, 100);
 
 test('An answer can be saved into the Repository', () => {
-    const createdAnswer: Answer = Answer.of(4, 1, 'true');
+    const createdAnswer: Answer = Answer.of(4, 1, 100);
     const createdAnswerId: number | undefined = answerRepo.add(createdAnswer);
 
     if (createdAnswerId !== undefined) {
@@ -42,14 +42,14 @@ test('An answer can be saved into the Repository', () => {
 }, 100);
 
 test('An answer already within the Repository cannot be added', () => {
-    const createdAnswer: Answer = Answer.of(answerOneId, questionOneId, 'false')
+    const createdAnswer: Answer = Answer.of(answerOneId, questionOneId, 100);
     const createdAnswerId = answerRepo.add(createdAnswer);
 
     expect(createdAnswerId).toBeUndefined();
 });
 
 test('An answer with an undefined ID can be added, with an ID assigned to it', () => {
-    const createdAnswer: Answer = Answer.new(questionOneId, 'false');
+    const createdAnswer: Answer = Answer.new(questionOneId, 100);
     const createdAnswerId = answerRepo.add(createdAnswer);
 
     if (createdAnswerId !== undefined) {

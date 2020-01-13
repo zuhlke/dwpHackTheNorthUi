@@ -1,21 +1,27 @@
 export const UNDEFINED_ANSWER = -1;
 
+export interface UserAnswer {
+    id: number;
+    questionId: number;
+    answer: string;
+}
+
 export class Answer {
     private readonly id: number;
     private readonly questionId: number;
-    private readonly answer: string;
+    private readonly answer: number;
 
-    private constructor(id: number, questionId: number, answer: string) {
+    private constructor(id: number, questionId: number, answer: number) {
         this.id = id;
         this.questionId = questionId;
         this.answer = answer;
     }
 
-    public static of(id: number, questionId: number, answer: string): Answer {
+    public static of(id: number, questionId: number, answer: number): Answer {
         return new Answer(id, questionId, answer);
     }
 
-    public static new(questionId: number, answer: string): Answer {
+    public static new(questionId: number, answer: number): Answer {
         return new Answer(UNDEFINED_ANSWER, questionId, answer);
     }
 
@@ -31,7 +37,7 @@ export class Answer {
         return this.questionId;
     }
 
-    public getValue(): string {
+    public getValue(): number {
         return this.answer;
     }
 }
