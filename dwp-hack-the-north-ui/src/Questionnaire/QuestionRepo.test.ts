@@ -12,12 +12,16 @@ export const questionRepo: QuestionRepository = InMemoryQuestionRepository.from(
 
 test('All questions can be obtained', () => {
     expect(questionRepo.getAll()).toStrictEqual(expectedQuestions);
-}, 100)
+}, 100);
 
 test('A particular question can be obtained', () => {
-    expect(questionRepo.get(1)).toBe(questionOne);
-}, 100)
+    expect(questionRepo.get(questionOneId)).toBe(questionOne);
+}, 100);
+
+test('An unknown Question ID returns an undefined object', () => {
+    expect(questionRepo.get(3)).toBeUndefined();
+}, 100);
 
 test('There is a default implementation for use within version 1 of the Project', () => {
     expect(InMemoryQuestionRepository.createDefaultInstance()).toBeTruthy();
-}, 100)
+}, 100);
