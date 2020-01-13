@@ -1,7 +1,7 @@
 export const UNDEFINED_ANSWER = -1;
 
 export interface UserAnswer {
-    id: number;
+    id?: number;
     questionId: number;
     answer: string;
 }
