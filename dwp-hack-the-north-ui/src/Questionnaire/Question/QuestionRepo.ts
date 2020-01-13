@@ -3,6 +3,7 @@ import { Question } from './Question';
 export interface QuestionRepository {
     get(id: number): Question | undefined;
     getAll(): Question[];
+    getQuestionCount(): number;
 }
 
 export class InMemoryQuestionRepository implements QuestionRepository {
@@ -31,5 +32,9 @@ export class InMemoryQuestionRepository implements QuestionRepository {
 
     public getAll(): Question[] {
         return Array.from(this.questions.values());
+    }
+
+    public getQuestionCount(): number {
+        return this.questions.size;
     }
 }

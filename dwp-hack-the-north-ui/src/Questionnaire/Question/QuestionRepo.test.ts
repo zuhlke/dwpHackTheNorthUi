@@ -25,3 +25,7 @@ test('An unknown Question ID returns an undefined object', () => {
 test('There is a default implementation for use within version 1 of the Project', () => {
     expect(InMemoryQuestionRepository.createDefaultInstance()).toBeTruthy();
 }, 100);
+
+test('Can return the total number of questions the repository holds', () => {
+    expect(questionRepo.getQuestionCount()).toBe(2);
+}, 100);
