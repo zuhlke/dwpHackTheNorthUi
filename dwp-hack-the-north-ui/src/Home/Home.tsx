@@ -1,6 +1,7 @@
 import React, {ReactElement} from 'react';
 import {RouteComponentProps, withRouter} from 'react-router-dom';
 import Button from "../common/Button/Button";
+import { BreadcrumbList } from '../common/Breadcrumb/Breadcrumb';
 
 interface HomeProps extends RouteComponentProps {
     id: string;
@@ -10,17 +11,7 @@ const Home = (props: HomeProps): ReactElement => {
     const start = (): void => props.history.push('Questionnaire');
     return (
         <div className="govuk-width-container">
-            <div className="govuk-breadcrumbs">
-                <ol className="govuk-breadcrumbs__list">
-                    <li className="govuk-breadcrumbs__list-item">
-                        <a className="govuk-breadcrumbs__link" href="#">Home</a>
-                    </li>
-                    <li className="govuk-breadcrumbs__list-item">
-                        <a className="govuk-breadcrumbs__link" href="#">Section</a>
-                    </li>
-                    <li className="govuk-breadcrumbs__list-item" aria-current="page">Subsection</li>
-                </ol>
-            </div>
+            <BreadcrumbList parentItems={[]} currentItem={{visibleText: "Home: Loan Calculator"}}/>
 
             <main className="govuk-main-wrapper " id="main-content" role="main">
                 <div className="govuk-grid-row">

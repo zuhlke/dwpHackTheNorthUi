@@ -1,5 +1,6 @@
 import React from 'react';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
+import { BreadcrumbCurrentItem, BreadcrumbListItem, BreadcrumbList, BreadcrumbCurrentProps, BreadcrumbListItemProps } from '../common/Breadcrumb/Breadcrumb';
 import Button from '../common/Button/Button';
 import { Question } from './Question/Question';
 import { InMemoryQuestionRepository, QuestionRepository } from './Question/QuestionRepo';
@@ -39,24 +40,21 @@ export const Questionnaire: React.FC<QuestionnaireProps> = (props: Questionnaire
         );
     } else {
         const onClickNext = (): void => next(props, question);
+        const currentQuestion: string = "Question " + question.getId();
+
+        const navCurrentProps: BreadcrumbCurrentProps = {visibleText: currentQuestion};
+        const navParentProps: BreadcrumbListItemProps[] = [
+            {href: "/", visibleText: "Home: Loan Calculator"},
+            {href: "/Questionnaire", visibleText: "Questionnaire"},
+        ];
+
         return (
             <div className="govuk-width-container">
-
-                <div className="govuk-breadcrumbs">
-                    <ol className="govuk-breadcrumbs__list">
-                        <li className="govuk-breadcrumbs__list-item">
-                            <a className="govuk-breadcrumbs__link" href="/">Home</a>
-                        </li>
-                        <li className="govuk-breadcrumbs__list-item">
-                            <a className="govuk-breadcrumbs__link" href="/Questionnaire">Questionnaire</a>
-                        </li>
-                        <li className="govuk-breadcrumbs__list-item" aria-current="page">Question {question.getId()}</li>
-                    </ol>
-                </div>
+                <BreadcrumbList parentItems={navParentProps} currentItem={navCurrentProps}/>
 
                 <div>
                     Questionnaire:
-                Question String: {question.getQuestionString()}
+                    Question String: {question.getQuestionString()}
                     <br />
                     <Button text="Next Question" onClick={onClickNext}></Button>
                 </div>
