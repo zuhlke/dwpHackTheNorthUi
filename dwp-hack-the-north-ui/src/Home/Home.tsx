@@ -28,7 +28,7 @@ const Home = (props: HomeProps): ReactElement => {
                         <h1 className="govuk-heading-xl">Loan calculator</h1>
                         <p className="govuk-body">Use this service to:</p>
                         <ul className="govuk-list govuk-list--bullet">
-                            <li>Calculate how much a load will cost</li>
+                            <li>Calculate how much a loan will cost</li>
                         </ul>
                         <p className="govuk-body">Takes less than one minute.</p>
                         <Button text="Start now" onClick={start}></Button>
