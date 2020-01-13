@@ -1,7 +1,7 @@
 import * as _ from 'lodash';
 import { Answer, UNDEFINED_ANSWER } from './Answer';
-import { Question } from './Question';
-import { QuestionRepository } from './QuestionRepo';
+import { Question } from '../Question/Question';
+import { QuestionRepository } from '../Question/QuestionRepo';
 
 export interface AnswerRepository {
     add(answer: Answer): number | undefined;

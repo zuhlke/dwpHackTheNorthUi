@@ -1,6 +1,6 @@
 import { Answer } from './Answer';
 import { AnswerRepository, InMemoryAnswerRepository } from './AnswerRepo';
-import { questionOne, questionOneId, questionRepo, questionTwoId } from './QuestionRepo.test';
+import { questionOne, questionOneId, questionRepo, questionTwoId } from '../Question/QuestionRepo.test';
 
 export const answerOneId = 1;
 export const answerTwoId = 2;
