@@ -14,4 +14,9 @@ export class Question {
     public getId(): number {
         return this.id;
     }
+
+    public getQuestionString(): string {
+        return this.questionString;
+    }
+
 }

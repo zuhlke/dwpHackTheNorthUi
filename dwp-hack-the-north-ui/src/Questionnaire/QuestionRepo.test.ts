@@ -14,3 +14,7 @@ test('All questions can be obtained', () => {
 test('A particular question can be obtained', () => {
     expect(questionRepo.get(1)).toBe(questionOne);
 }, 100)
+
+test('There is a default implementation for use within version 1 of the Project', () => {
+    expect(InMemoryQuestionRepository.createDefaultInstance()).toBeTruthy();
+}, 100)
