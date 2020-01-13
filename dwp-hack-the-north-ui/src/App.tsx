@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
 import React from 'react';
 import './App.scss';
 import Home from "./Home/Home";
@@ -14,6 +14,9 @@ const App: React.FC = () => {
                 <Switch>
                     <Route exact={true} path="/" component={Home}/>
                     <Route path="/Questionnaire/:questionId" component={Questionnaire} />
+                    <Route path="/Questionnaire">
+                        <Redirect to="/Questionnaire/1" />
+                    </Route>
                 </Switch>
             </BrowserRouter>
         </div>
