@@ -1,9 +1,10 @@
 import React, { ReactElement } from 'react';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
-import { BreadcrumbCurrentProps, BreadcrumbList, BreadcrumbListItemProps } from '../common/Breadcrumb/Breadcrumb';
+import { BreadcrumbCurrentProps, BreadcrumbListItemProps, BreadcrumbListProps } from '../common/Breadcrumb/Breadcrumb';
 import Button from '../common/Button/Button';
 import { Question } from './Question/Question';
 import { InMemoryQuestionRepository, QuestionRepository } from './Question/QuestionRepo';
+import { MainContent } from '../common/Content/MainContent';
 
 interface QuestionId {
     questionId: string;
@@ -47,17 +48,15 @@ function undefinedQuestionElement(): ReactElement {
         </div>);
 }
 
-function getPageBreadcrumbs(question: Question | undefined): ReactElement {
+function getPageBreadcrumbProps(question: Question | undefined): BreadcrumbListProps {
     const currentQuestion: string = (question === undefined) ? "Unknown Question" : "Question " + question.getId();
     const navCurrentProps: BreadcrumbCurrentProps = { visibleText: currentQuestion };
     const navParentProps: BreadcrumbListItemProps[] = [
         { href: "/", visibleText: "Home: Loan Calculator" },
         { href: "/Questionnaire", visibleText: "Questionnaire" },
-    ];
+    ];    
 
-    return (
-        <BreadcrumbList parentItems={navParentProps} currentItem={navCurrentProps} />
-    );
+    return {parentItems: navParentProps, currentItem: navCurrentProps};
 }
 
 function getReactiveContent(props: QuestionnaireProps, question: Question | undefined): ReactElement {
@@ -66,19 +65,10 @@ function getReactiveContent(props: QuestionnaireProps, question: Question | unde
 
 export const Questionnaire: React.FC<QuestionnaireProps> = (props: QuestionnaireProps) => {
     const question: Question | undefined = getQuestionFromArray(props.match.params.questionId);
-    const breadcrumbs: ReactElement = getPageBreadcrumbs(question);
     const reactiveContent: ReactElement = getReactiveContent(props, question);
+
     return (
-        <div className="govuk-width-container">
-            {breadcrumbs}
-            <main className="govuk-main-wrapper " id="main-content" role="main">
-                <div className="govuk-grid-row">
-                    <div className="govuk-grid-column-two-thirds">
-                        {reactiveContent}
-                    </div>
-                </div>
-            </main>
-        </div>
+        <MainContent breadcrumbData={getPageBreadcrumbProps(question)} reactiveContent={reactiveContent} />
     );
 };
 
