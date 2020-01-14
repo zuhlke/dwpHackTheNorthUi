@@ -11,7 +11,6 @@ interface QuestionId {
 }
 
 const questionRepo: QuestionRepository = InMemoryQuestionRepository.createDefaultInstance();
-const totalQuestionCount: number = questionRepo.getQuestionCount();
 const next = (props: QuestionnaireProps, question: Question): void => props.history.push('/Questionnaire/' + (question.getId() + 1));
 
 export interface QuestionnaireProps extends RouteComponentProps<QuestionId> {

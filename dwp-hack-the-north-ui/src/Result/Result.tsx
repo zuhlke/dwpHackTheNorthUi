@@ -16,7 +16,7 @@ interface ResultProps extends RouteComponentProps<ResultInformation> {
     loanTime: number;
 }
 
-function getBreadcrumbInformation(props: ResultProps): BreadcrumbListProps {
+function getBreadcrumbInformation(): BreadcrumbListProps {
     return {
         currentItem: {visibleText: 'Results'},
         parentItems: [
@@ -42,7 +42,7 @@ function getContent(props: ResultProps): ReactElement {
 export const Result: React.FC<ResultProps> = (props: ResultProps) => {
     return (
         <div>
-            <MainContent breadcrumbData={getBreadcrumbInformation(props)} reactiveContent={getContent(props)}/>
+            <MainContent breadcrumbData={getBreadcrumbInformation()} reactiveContent={getContent(props)}/>
         </div>
     );
 };
