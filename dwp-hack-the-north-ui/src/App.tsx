@@ -5,6 +5,7 @@ import Home from "./Home/Home";
 import { Questionnaire } from './Questionnaire/Questionnaire';
 import Header from "./common/Header";
 import Footer from "./common/Footer";
+import { Result } from './Result/Result';
 
 const App: React.FC = () => {
     return <div>
@@ -13,6 +14,7 @@ const App: React.FC = () => {
             <BrowserRouter>
                 <Switch>
                     <Route exact={true} path="/" component={Home}/>
+                    <Route path="/Questionnaire/result" component={Result} />
                     <Route path="/Questionnaire/:questionId" component={Questionnaire} />
                     <Route path="/Questionnaire">
                         <Redirect to="/Questionnaire/1" />
