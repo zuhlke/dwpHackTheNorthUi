@@ -80,13 +80,6 @@ export const Questionnaire: React.FC<QuestionnaireProps> = (props: Questionnaire
             </main>
         </div>
     );
-
-
-    // if (question === undefined) {
-    //     return undefinedQuestionElement();
-    // } else {
-    //     return generateSuccessfulQuestion(props, question);
-    // }
 };
 
 export default withRouter(Questionnaire);
