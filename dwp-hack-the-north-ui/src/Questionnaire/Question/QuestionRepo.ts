@@ -17,7 +17,7 @@ export class InMemoryQuestionRepository implements QuestionRepository {
 
     public static createDefaultInstance(): QuestionRepository {
         return this.from([
-            Question.of(1, 'Please state the amount you wish to borrow?'),
+            Question.of(1, 'Please state the amount you wish to borrow:'),
             Question.of(2, 'What is the interest rate for the amount you wish to borrow?')
         ]);
     }
