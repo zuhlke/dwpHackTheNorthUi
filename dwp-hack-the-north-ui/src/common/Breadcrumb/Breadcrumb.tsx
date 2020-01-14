@@ -16,7 +16,7 @@ export interface BreadcrumbListProps {
 
 export const BreadcrumbListItem = (props: BreadcrumbListItemProps): ReactElement => {
     return (
-        <li className="govuk-breadcrumbs__list-item">
+        <li className="govuk-breadcrumbs__list-item" key={props.visibleText}>
             <a className="govuk-breadcrumbs__link" href={props.href}>{props.visibleText}</a>
         </li>
     );
@@ -24,7 +24,7 @@ export const BreadcrumbListItem = (props: BreadcrumbListItemProps): ReactElement
 
 export const BreadcrumbCurrentItem = (props: BreadcrumbCurrentProps): ReactElement => {
     return (
-        <li className="govuk-breadcrumbs__list-item" aria-current="page">{props.visibleText}</li>
+        <li className="govuk-breadcrumbs__list-item" aria-current="page" key={props.visibleText}>{props.visibleText}</li>
     );
 }
 

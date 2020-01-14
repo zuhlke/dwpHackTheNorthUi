@@ -18,15 +18,15 @@ const answers: Answer[] = [
 
 export const answerRepo: AnswerRepository = InMemoryAnswerRepository.of(questionRepo, answers);
 
-test('Question strings can be obtained from an Answer', () => {
+test('Question strings can be obtained from an Answer', async () => {
     expect(answerRepo.getQuestionFromAnswerId(1)).toBe(questionOne);
 }, 100);
 
-test('A stored Answer can be obtained', () => {
+test('A stored Answer can be obtained', async () => {
     expect(answerRepo.get(1)).toBe(answerOne);
 }, 100);
 
-test('An unknown ID returns an undefined Answer', () => {
+test('An unknown ID returns an undefined Answer', async () => {
     expect(answerRepo.get(9999)).toBeUndefined();
 }, 100);
 
