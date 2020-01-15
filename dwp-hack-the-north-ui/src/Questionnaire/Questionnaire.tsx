@@ -11,7 +11,9 @@ interface QuestionId {
 }
 
 const questionRepo: QuestionRepository = InMemoryQuestionRepository.createDefaultInstance();
+const questionCount = questionRepo.getQuestionCount();
 const next = (props: QuestionnaireProps, question: Question): void => props.history.push('/Questionnaire/' + (question.getId() + 1));
+const goToResult = (props: QuestionnaireProps): void => props.history.push('/Questionnaire/Result');
 
 export interface QuestionnaireProps extends RouteComponentProps<QuestionId> {
     questionId: string;
@@ -29,7 +31,7 @@ function getQuestionFromArray(questionId: string): Question | undefined {
 };
 
 function generateSuccessfulQuestion(props: QuestionnaireProps, question: Question): ReactElement {
-    const onClickNext = (): void => next(props, question);
+    const onClickNext = (): void => (question.getId() === questionCount) ? goToResult(props) : next(props, question);
 
     return (
         <div>
