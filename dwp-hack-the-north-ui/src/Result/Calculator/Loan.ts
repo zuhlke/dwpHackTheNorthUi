@@ -126,11 +126,7 @@ export class Loan implements LoanCalculator {
         return this.rate.getCompoundIncrementCount() * this.length.getYearsTime();
     }
 
-    // (1 + r/n)^(nt)
     public getTotalPaymentCost(): number {
-        const initialBracket: number = 1 + this.rate.getPeriodicInterestRate();
-        const power: number = this.getPeriodicPayments();
-
-        return this.amount.getTotal() * Number(Math.pow(initialBracket, power).toFixed(2));
+        return Number((this.getIncrementPaymentCost() * this.getPeriodicPayments()).toFixed(2));
     }
 }
