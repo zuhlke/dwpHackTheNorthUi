@@ -1,9 +1,3 @@
-# Welcome to your CDK TypeScript project!
-
-This is a blank project for TypeScript development with CDK.
-
-The `cdk.json` file tells the CDK Toolkit how to execute your app.
-
 # AWS CDK Installation
  
  AWS Cloud Development Kit (AWS CDK) is a software development framework for specifying cloud infrastructure using in code using (i.e., TypeScript, Python, Java and C#) and provisioning it through AWS CloudFormation[[1]](https://docs.aws.amazon.com/cdk/latest/guide/home.html).
