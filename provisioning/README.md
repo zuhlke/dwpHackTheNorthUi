@@ -22,7 +22,7 @@
  
  ### Other useful commands
  1. Watch for changes and compile: ``npm run watch``
- 2. Perform the jest unit tests: ``nom run test``
+ 2. Perform the jest unit tests: ``npm run test``
  3. Compare deployed stack with current state: ``cdk diff``
  
  ### Notes
