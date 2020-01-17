@@ -85,7 +85,7 @@ function generateSuccessfulQuestion(props: QuestionnaireProps, question: Questio
             <h1 className="govuk-heading-x1">{question.getQuestionString()}</h1>
             <br />
             <form>
-                <input type="text" name={question.getId().toString()} onChange={(text): void => handleTextChange(text.target.value, question, dispatch)}/>
+                <input className="govuk-input govuk-input--width-10" type="text" name={question.getId().toString()} onChange={(text): void => handleTextChange(text.target.value, question, dispatch)}/>
                 <br /><br /><br />
                 <Button text="Continue" onClick={onClickNext} arrow={false}/>
             </form>
