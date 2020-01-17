@@ -87,7 +87,7 @@ function generateSuccessfulQuestion(props: QuestionnaireProps, question: Questio
             <form>
                 <input type="text" name={question.getId().toString()} onChange={(text): void => handleTextChange(text.target.value, question, dispatch)}/>
                 <br /><br /><br />
-                <Button text="Next Question" onClick={onClickNext} />
+                <Button text="Continue" onClick={onClickNext} arrow={false}/>
             </form>
         </div>
     );

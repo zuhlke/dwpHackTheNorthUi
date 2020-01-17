@@ -20,7 +20,7 @@ const homeContent = (props: HomeProps): ReactElement => {
                 <li>Determine whether you can afford the loan</li>
             </ul>
             <p className="govuk-body">Takes less than one minute.</p>
-            <Button text="Start now" onClick={start}></Button>
+            <Button text="Start now" onClick={start} arrow={true}/>
         </div>
     );
 }
