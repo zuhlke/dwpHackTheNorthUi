@@ -1,19 +1,12 @@
-import React from 'react';
-import { RouteComponentProps, withRouter } from 'react-router-dom';
-import { MainContent } from '../common/Content/MainContent';
+import React, { ReactElement } from 'react';
+import { connect, useSelector } from 'react-redux';
 import { BreadcrumbListProps } from '../common/Breadcrumb/Breadcrumb';
-import { ReactElement } from 'react';
+import { MainContent } from '../common/Content/MainContent';
+import { QuestionState } from '../reducers/QuestionState';
+import { Loan, LoanCalculator } from './Calculator/Loan';
 
-interface ResultInformation {
-    loanAmount: string;
-    loanInterest: string;
-    loanTime: string;
-}
-
-interface ResultProps extends RouteComponentProps<ResultInformation> {
-    loanAmount: number;
-    loanInterest: number;
-    loanTime: number;
+interface ResultProps {
+    loan: LoanCalculator;
 }
 
 function getBreadcrumbInformation(): BreadcrumbListProps {
@@ -26,25 +19,34 @@ function getBreadcrumbInformation(): BreadcrumbListProps {
     };
 }
 
-function getContent(props: ResultProps): ReactElement {
+function getContent(props: ResultProps, questionState: QuestionState): ReactElement {
     return (
         <div>
             <h1 className="govuk-heading-x1">Your Questionnaire Results</h1>
             <ul className="govuk-list govuk-list--bullet">
-                <li>Loan Amount: £{props.match.params.loanAmount}</li>
-                <li>Loan Interest Rate: {props.match.params.loanInterest}%</li>
-                <li>Loan Length: {props.match.params.loanTime} Months</li>
+                <li>Loan Amount: £{questionState.amount?.getTotal()}</li>
+                <li>Loan Interest Rate: {questionState.interest?.getAnnualRate()}%</li>
+                <li>Loan Length: {questionState.time?.getMonthsTime()} Months</li>
             </ul>
         </div>
     );
 }
 
 export const Result: React.FC<ResultProps> = (props: ResultProps) => {
+    const reducerInformation: QuestionState = useSelector((state: QuestionState) => state);
     return (
         <div>
-            <MainContent breadcrumbData={getBreadcrumbInformation()} reactiveContent={getContent(props)}/>
+            <MainContent breadcrumbData={getBreadcrumbInformation()} reactiveContent={getContent(props, reducerInformation)}/>
         </div>
     );
 };
 
-export default withRouter(Result);
+const mapStateToProps = (state: QuestionState): ResultProps => {
+    if (state.amount !== undefined && state.interest !== undefined && state.time !== undefined) {
+        return {
+            loan: Loan.of(state.amount, state.interest, state.time),
+        };
+    }
+};
+
+export default connect(mapStateToProps)(Result);

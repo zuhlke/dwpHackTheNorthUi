@@ -1,27 +1,70 @@
-import React, { ReactElement, useState } from 'react';
-import { RouteComponentProps, withRouter } from 'react-router-dom';
+import { default as React, Dispatch, ReactElement } from 'react';
+import { connect, useDispatch } from 'react-redux';
+import { RouteComponentProps } from 'react-router-dom';
 import { BreadcrumbCurrentProps, BreadcrumbListItemProps, BreadcrumbListProps } from '../common/Breadcrumb/Breadcrumb';
 import Button from '../common/Button/Button';
+import { MainContent } from '../common/Content/MainContent';
+import { loanAmount, loanInterest, LoanSegment, loanTime, QuestionState } from '../reducers/QuestionState';
 import { Question } from './Question/Question';
 import { InMemoryQuestionRepository, QuestionRepository } from './Question/QuestionRepo';
-import { MainContent } from '../common/Content/MainContent';
+import { LoanAmount, LoanInterest, LoanTime } from '../Result/Calculator/Loan';
 
-interface QuestionId {
+export interface QuestionnaireInputData {
     questionId: string;
 }
+
+interface QuestionnaireStateData {
+    questionId: string;
+    loanAmount?: LoanAmount;
+    loanInterest?: LoanInterest;
+    loanTime?: LoanTime;
+}
+
+interface QuestionnaireData extends RouteComponentProps<QuestionnaireInputData> {
+    questionId: string;
+}
+
+interface QuestionnaireDispatchData {
+    handleTextChange: (questionId: number, question: Question, dispatch: Dispatch<LoanSegment>) => void;
+}
+
+export type QuestionnaireProps = QuestionnaireStateData & QuestionnaireDispatchData & QuestionnaireData;
 
 const questionRepo: QuestionRepository = InMemoryQuestionRepository.createDefaultInstance();
 const questionCount = questionRepo.getQuestionCount();
-const next = (props: QuestionnaireProps, question: Question, userInput: string): void => {
-    props.history.push('/Questionnaire/' + (question.getId() + 1));
-}
-const goToResult = (props: QuestionnaireProps, userInput: string): void => {
-    props.history.push('/Questionnaire/Result');
+
+function generateLoanSegment(questionId: number, userInput: string): LoanSegment | undefined {
+    let result: LoanSegment | undefined = undefined;
+
+    switch (questionId) {
+        case 1:
+            result =loanAmount(userInput);
+            break;
+        case 2:
+            result = loanInterest(userInput);
+            break;
+        case 3:
+            result = loanTime(userInput);
+            break;
+        default:
+            break;
+    }
+
+    return result;
 }
 
-export interface QuestionnaireProps extends RouteComponentProps<QuestionId> {
-    questionId: string;
+const handleTextChange = (userInput: string, question: Question, dispatch: Dispatch<LoanSegment>): void => {
+    const loanSegment: LoanSegment | undefined = generateLoanSegment(question.getId(), userInput);
+
+    if (loanSegment !== undefined) {
+        dispatch(loanSegment);
+    }
 }
+
+const handleQuestionResponse = (props: QuestionnaireProps, question: Question): void => {
+    const nextPage: string = '/Questionnaire/' + ((question.getId() === questionCount) ? 'Result' : (question.getId() + 1).toString());
+    props.history.push(nextPage);
+};
 
 function getQuestionFromArray(questionId: string): Question | undefined {
     let result: Question | undefined = undefined;
@@ -34,15 +77,15 @@ function getQuestionFromArray(questionId: string): Question | undefined {
     return result;
 };
 
-function generateSuccessfulQuestion(props: QuestionnaireProps, question: Question, textChange: string, setTextChange: React.Dispatch<React.SetStateAction<string>>): ReactElement {
-    const onClickNext = (): void => (question.getId() === questionCount) ? goToResult(props, textChange) : next(props, question, textChange);
+function generateSuccessfulQuestion(props: QuestionnaireProps, question: Question, dispatch: Dispatch<LoanSegment>): ReactElement {
+    const onClickNext = (): void => handleQuestionResponse(props, question);
 
     return (
         <div>
             <h1 className="govuk-heading-x1">{question.getQuestionString()}</h1>
             <br />
             <form>
-                <input type="text" name={question.getId().toString()} onChange={(text): void => setTextChange(text.target.value)}/>
+                <input type="text" name={question.getId().toString()} onChange={(text): void => handleTextChange(text.target.value, question, dispatch)}/>
                 <br /><br /><br />
                 <Button text="Next Question" onClick={onClickNext} />
             </form>
@@ -68,18 +111,28 @@ function getPageBreadcrumbProps(question: Question | undefined): BreadcrumbListP
     return {parentItems: navParentProps, currentItem: navCurrentProps};
 }
 
-function getReactiveContent(props: QuestionnaireProps, question: Question | undefined, textChange: string, setTextChange: React.Dispatch<React.SetStateAction<string>>): ReactElement {
-    return (question === undefined) ? undefinedQuestionElement() : generateSuccessfulQuestion(props, question, textChange, setTextChange);
+function getReactiveContent(props: QuestionnaireProps, question: Question | undefined, dispatch: Dispatch<LoanSegment>): ReactElement {
+    return (question === undefined) ? undefinedQuestionElement() : generateSuccessfulQuestion(props, question, dispatch);
 }
 
 export const Questionnaire: React.FC<QuestionnaireProps> = (props: QuestionnaireProps) => {
-    const [textChange, setTextChange] = useState("");
+    const dispatch: Dispatch<LoanSegment> = useDispatch();
     const question: Question | undefined = getQuestionFromArray(props.match.params.questionId);
-    const reactiveContent: ReactElement = getReactiveContent(props, question, textChange, setTextChange);
+    const reactiveContent: ReactElement = getReactiveContent(props, question, dispatch);
 
     return (
         <MainContent breadcrumbData={getPageBreadcrumbProps(question)} reactiveContent={reactiveContent} />
     );
 };
 
-export default withRouter(Questionnaire);
+function mapStateToProps(state: QuestionState, ownProps: QuestionnaireData): QuestionnaireStateData {
+    return {
+        questionId: ownProps.match.params.questionId,
+        loanAmount: state.amount,
+        loanInterest: state.interest,
+        loanTime: state.time,
+    };
+}
+
+
+export default connect<QuestionnaireStateData, {}, QuestionnaireData>(mapStateToProps)(Questionnaire);

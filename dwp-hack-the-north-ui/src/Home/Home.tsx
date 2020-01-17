@@ -1,8 +1,9 @@
 import React, { ReactElement } from 'react';
-import { RouteComponentProps, withRouter } from 'react-router-dom';
+import { RouteComponentProps } from 'react-router-dom';
 import { BreadcrumbListProps } from '../common/Breadcrumb/Breadcrumb';
 import Button from "../common/Button/Button";
 import { MainContent } from '../common/Content/MainContent';
+import { connect } from 'react-redux';
 
 interface HomeProps extends RouteComponentProps {
     id: string;
@@ -33,4 +34,4 @@ const Home = (props: HomeProps): ReactElement => {
     )
 };
 
-export default withRouter(Home);
+export default connect()(Home);
