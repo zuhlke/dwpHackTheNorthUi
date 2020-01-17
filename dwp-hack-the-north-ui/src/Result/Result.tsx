@@ -41,12 +41,14 @@ export const Result: React.FC<ResultProps> = (props: ResultProps) => {
     );
 };
 
-const mapStateToProps = (state: QuestionState): ResultProps => {
+const mapStateToProps = (state: QuestionState): ResultProps | undefined => {
     if (state.amount !== undefined && state.interest !== undefined && state.time !== undefined) {
         return {
             loan: Loan.of(state.amount, state.interest, state.time),
         };
     }
+
+    return 
 };
 
 export default connect(mapStateToProps)(Result);
