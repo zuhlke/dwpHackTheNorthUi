@@ -1,5 +1,5 @@
 import s3 = require("@aws-cdk/aws-s3");
-import {Construct, RemovalPolicy} from "@aws-cdk/core";
+import {App, RemovalPolicy, Stack} from "@aws-cdk/core";
 import {BucketDeployment, Source} from "@aws-cdk/aws-s3-deployment";
 
 export interface HostingBucketProps {
@@ -7,8 +7,8 @@ export interface HostingBucketProps {
     sourcePath: string
 }
 
-export class HostingBucket extends Construct {
-    constructor(scope: Construct, id: string, props: HostingBucketProps = {bucketName: '', sourcePath: ''}) {
+export class HostingBucketStack extends Stack {
+    constructor(scope: App, id: string, props: HostingBucketProps) {
         super(scope, id);
 
         if ( (props.bucketName != null && props.bucketName != "") && (props.sourcePath != null && props.sourcePath != "")) {
