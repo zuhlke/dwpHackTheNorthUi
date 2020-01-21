@@ -54,7 +54,7 @@ export interface QuestionState {
     time?: LoanTime;
 }
 
-const questionReducer = (state: QuestionState = {}, action: LoanSegment): QuestionState => {
+export const questionReducer = (state: QuestionState = {}, action: LoanSegment): QuestionState => {
     let result: QuestionState;
 
     switch (action.type) {
@@ -63,21 +63,21 @@ const questionReducer = (state: QuestionState = {}, action: LoanSegment): Questi
                 amount: action.payload,
                 interest: state.interest,
                 time: state.time
-              })
+              });
             break;
         case LOAN_SEGMENT_INTEREST:
             result = Object.assign({}, state, {
                 amount: state.amount,
                 interest: action.payload,
                 time: state.time
-              })
+              });
             break;
         case LOAN_SEGMENT_TIME:
             result = Object.assign({}, state, {
                 amount: state.amount,
                 interest: state.interest,
                 time: action.payload
-              })
+              });
             break;
         default:
             result = state;
@@ -85,6 +85,4 @@ const questionReducer = (state: QuestionState = {}, action: LoanSegment): Questi
     }
 
     return result;
-  }
-  
-export default questionReducer;
+};

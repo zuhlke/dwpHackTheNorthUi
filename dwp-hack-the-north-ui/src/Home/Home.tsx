@@ -1,9 +1,8 @@
 import React, { ReactElement } from 'react';
 import { RouteComponentProps } from 'react-router-dom';
 import { BreadcrumbListProps } from '../common/Breadcrumb/Breadcrumb';
-import Button from "../common/Button/Button";
+import { Button } from "../common/Button/Button";
 import { MainContent } from '../common/Content/MainContent';
-import { connect } from 'react-redux';
 
 interface HomeProps extends RouteComponentProps {
     id: string;
@@ -23,9 +22,9 @@ const homeContent = (props: HomeProps): ReactElement => {
             <Button text="Start now" onClick={start} arrow={true}/>
         </div>
     );
-}
+};
 
-const Home = (props: HomeProps): ReactElement => {
+export const Home: React.FC<HomeProps> = (props: HomeProps) => {
     const breadcrumbProps: BreadcrumbListProps = {parentItems: [], currentItem: {visibleText: "Home: Loan Calculator"}};
     return (
         <div>
@@ -33,5 +32,3 @@ const Home = (props: HomeProps): ReactElement => {
         </div>
     )
 };
-
-export default connect()(Home);

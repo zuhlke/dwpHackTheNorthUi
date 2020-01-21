@@ -1,10 +1,10 @@
 import { default as React, Dispatch, ReactElement } from 'react';
-import { connect, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { RouteComponentProps } from 'react-router-dom';
 import { BreadcrumbCurrentProps, BreadcrumbListItemProps, BreadcrumbListProps } from '../common/Breadcrumb/Breadcrumb';
-import Button from '../common/Button/Button';
+import { Button } from '../common/Button/Button';
 import { MainContent } from '../common/Content/MainContent';
-import { loanAmount, loanInterest, LoanSegment, loanTime, QuestionState } from '../reducers/QuestionState';
+import { loanAmount, loanInterest, LoanSegment, loanTime } from '../reducers/QuestionState';
 import { Question } from './Question/Question';
 import { InMemoryQuestionRepository, QuestionRepository } from './Question/QuestionRepo';
 import { LoanAmount, LoanInterest, LoanTime } from '../Result/Calculator/Loan';
@@ -57,9 +57,10 @@ const handleTextChange = (userInput: string, question: Question, dispatch: Dispa
     const loanSegment: LoanSegment | undefined = generateLoanSegment(question.getId(), userInput);
 
     if (loanSegment !== undefined) {
+        console.log(JSON.stringify(loanSegment));
         dispatch(loanSegment);
     }
-}
+};
 
 const handleQuestionResponse = (props: QuestionnaireProps, question: Question): void => {
     const nextPage: string = '/Questionnaire/' + ((question.getId() === questionCount) ? 'Result' : (question.getId() + 1).toString());
@@ -124,15 +125,3 @@ export const Questionnaire: React.FC<QuestionnaireProps> = (props: Questionnaire
         <MainContent breadcrumbData={getPageBreadcrumbProps(question)} reactiveContent={reactiveContent} />
     );
 };
-
-function mapStateToProps(state: QuestionState, ownProps: QuestionnaireData): QuestionnaireStateData {
-    return {
-        questionId: ownProps.match.params.questionId,
-        loanAmount: state.amount,
-        loanInterest: state.interest,
-        loanTime: state.time,
-    };
-}
-
-
-export default connect<QuestionnaireStateData, {}, QuestionnaireData>(mapStateToProps)(Questionnaire);

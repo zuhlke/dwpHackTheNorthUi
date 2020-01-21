@@ -7,7 +7,7 @@ interface ButtonProps {
     arrow: boolean;
 }
 
-const Button = (props: ButtonProps): ReactElement => (
+export const Button = (props: ButtonProps): ReactElement => (
     <button className="govuk-button" data-module="govuk-button" onClick={props.onClick}>
         <span>
             {props.text}
@@ -20,5 +20,3 @@ const Button = (props: ButtonProps): ReactElement => (
         </span>
     </button>
 );
-
-export default Button;

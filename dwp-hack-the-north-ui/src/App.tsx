@@ -1,14 +1,13 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom';
 import './App.scss';
-import Footer from "./common/Footer";
-import Header from "./common/Header";
-import Home from "./Home/Home";
+import { Footer } from "./common/Footer";
+import { Header } from "./common/Header";
+import {Home } from "./Home/Home";
 import { Questionnaire } from './Questionnaire/Questionnaire';
 import { Result } from './Result/Result';
 
-const App: React.FC = () => {
+export const App: React.FC = () => {
 
     return <div>
         <Header/>
@@ -27,5 +26,3 @@ const App: React.FC = () => {
         <Footer/>
     </div>
 };
-
-export default connect()(App);

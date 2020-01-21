@@ -7,7 +7,7 @@ export interface MainContentData {
     reactiveContent: ReactElement;
 }
 
-export const MainContent = (contentData: MainContentData): ReactElement => {
+export const MainContent: React.FC<MainContentData> = (contentData: MainContentData) => {
     return (
         <div className="govuk-width-container">
             <BreadcrumbList parentItems={contentData.breadcrumbData.parentItems} currentItem={contentData.breadcrumbData.currentItem} />
@@ -20,4 +20,4 @@ export const MainContent = (contentData: MainContentData): ReactElement => {
             </main>
         </div>
     );
-}
+};

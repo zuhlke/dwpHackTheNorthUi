@@ -1,9 +1,9 @@
 import React, { ReactElement } from 'react';
-import { connect, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { BreadcrumbListProps } from '../common/Breadcrumb/Breadcrumb';
 import { MainContent } from '../common/Content/MainContent';
 import { QuestionState } from '../reducers/QuestionState';
-import { Loan, LoanCalculator } from './Calculator/Loan';
+import { LoanCalculator } from './Calculator/Loan';
 
 interface ResultProps {
     loan: LoanCalculator;
@@ -40,15 +40,3 @@ export const Result: React.FC<ResultProps> = (props: ResultProps) => {
         </div>
     );
 };
-
-const mapStateToProps = (state: QuestionState): ResultProps | undefined => {
-    if (state.amount !== undefined && state.interest !== undefined && state.time !== undefined) {
-        return {
-            loan: Loan.of(state.amount, state.interest, state.time),
-        };
-    }
-
-    return 
-};
-
-export default connect(mapStateToProps)(Result);

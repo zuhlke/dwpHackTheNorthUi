@@ -1,6 +1,6 @@
 import React from 'react'
 
-const Footer: React.FC = () => {
+export const Footer: React.FC = () => {
     return (
         <footer className="govuk-footer " role="contentinfo">
             <div className="govuk-width-container ">
@@ -29,5 +29,3 @@ const Footer: React.FC = () => {
         </footer>
     )
 };
-
-export default Footer;

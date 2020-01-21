@@ -20,13 +20,13 @@ export const BreadcrumbListItem = (props: BreadcrumbListItemProps): ReactElement
             <a className="govuk-breadcrumbs__link" href={props.href}>{props.visibleText}</a>
         </li>
     );
-}
+};
 
 export const BreadcrumbCurrentItem = (props: BreadcrumbCurrentProps): ReactElement => {
     return (
         <li className="govuk-breadcrumbs__list-item" aria-current="page" key={props.visibleText}>{props.visibleText}</li>
     );
-}
+};
 
 export const BreadcrumbList = (props: BreadcrumbListProps): ReactElement => {
     const breadcrumbParents: ReactElement[] = [];
@@ -44,4 +44,4 @@ export const BreadcrumbList = (props: BreadcrumbListProps): ReactElement => {
         </div>
     );
 
-}
+};

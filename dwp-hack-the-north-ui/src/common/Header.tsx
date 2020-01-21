@@ -1,7 +1,7 @@
 import React from 'react'
 import logo from "govuk-frontend/govuk/assets/images/govuk-logotype-crown.png";
 
-const Header: React.FC = () => {
+export const Header: React.FC = () => {
     return (
         <header className="govuk-header" role="banner" data-module="govuk-header">
             <div className="govuk-header__container govuk-width-container">
@@ -21,5 +21,3 @@ const Header: React.FC = () => {
         </header>
     )
 };
-
-export default Header;
