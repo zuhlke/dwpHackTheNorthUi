@@ -1,15 +1,12 @@
-import React, { ReactElement } from 'react';
-import { RouteComponentProps } from 'react-router-dom';
+import {useHistory} from 'react-router-dom';
 import { BreadcrumbListProps } from '../common/Breadcrumb/Breadcrumb';
 import { Button } from "../common/Button/Button";
 import { MainContent } from '../common/Content/MainContent';
+import {History} from "history";
+import {default as React} from "react";
 
-interface HomeProps extends RouteComponentProps {
-    id: string;
-}
-
-const homeContent = (props: HomeProps): ReactElement => {
-    const start = (): void => props.history.push('Questionnaire');
+const homeContent = (history: History) => {
+    const start = (): void => history.push('Questionnaire');
     return (
         <div>
             <h1 className="govuk-heading-xl">Loan calculator</h1>
@@ -24,11 +21,12 @@ const homeContent = (props: HomeProps): ReactElement => {
     );
 };
 
-export const Home: React.FC<HomeProps> = (props: HomeProps) => {
+export const Home: React.FC = () => {
+    const history: History = useHistory();
     const breadcrumbProps: BreadcrumbListProps = {parentItems: [], currentItem: {visibleText: "Home: Loan Calculator"}};
     return (
         <div>
-            <MainContent breadcrumbData={breadcrumbProps} reactiveContent={homeContent(props)} />
+            <MainContent breadcrumbData={breadcrumbProps} reactiveContent={homeContent(history)} />
         </div>
     )
 };
