@@ -29,10 +29,6 @@ export class Answer {
         return this.id;
     }
 
-    public hasId(): boolean {
-        return this.id !== -1;
-    }
-
     public getQuestionId(): number {
         return this.questionId;
     }

@@ -61,21 +61,15 @@ export const questionReducer = (state: QuestionState = {}, action: LoanSegment):
         case LOAN_SEGMENT_AMOUNT:
             result = Object.assign({}, state, {
                 amount: action.payload,
-                interest: state.interest,
-                time: state.time
               });
             break;
         case LOAN_SEGMENT_INTEREST:
             result = Object.assign({}, state, {
-                amount: state.amount,
                 interest: action.payload,
-                time: state.time
               });
             break;
         case LOAN_SEGMENT_TIME:
             result = Object.assign({}, state, {
-                amount: state.amount,
-                interest: state.interest,
                 time: action.payload
               });
             break;

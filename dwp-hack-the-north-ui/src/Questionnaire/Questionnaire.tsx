@@ -1,34 +1,13 @@
 import { default as React, Dispatch, ReactElement } from 'react';
 import { useDispatch } from 'react-redux';
-import { RouteComponentProps } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 import { BreadcrumbCurrentProps, BreadcrumbListItemProps, BreadcrumbListProps } from '../common/Breadcrumb/Breadcrumb';
 import { Button } from '../common/Button/Button';
 import { MainContent } from '../common/Content/MainContent';
 import { loanAmount, loanInterest, LoanSegment, loanTime } from '../reducers/QuestionState';
 import { Question } from './Question/Question';
 import { InMemoryQuestionRepository, QuestionRepository } from './Question/QuestionRepo';
-import { LoanAmount, LoanInterest, LoanTime } from '../Result/Calculator/Loan';
-
-export interface QuestionnaireInputData {
-    questionId: string;
-}
-
-interface QuestionnaireStateData {
-    questionId: string;
-    loanAmount?: LoanAmount;
-    loanInterest?: LoanInterest;
-    loanTime?: LoanTime;
-}
-
-interface QuestionnaireData extends RouteComponentProps<QuestionnaireInputData> {
-    questionId: string;
-}
-
-interface QuestionnaireDispatchData {
-    handleTextChange: (questionId: number, question: Question, dispatch: Dispatch<LoanSegment>) => void;
-}
-
-export type QuestionnaireProps = QuestionnaireStateData & QuestionnaireDispatchData & QuestionnaireData;
+import { History } from "history";
 
 const questionRepo: QuestionRepository = InMemoryQuestionRepository.createDefaultInstance();
 const questionCount = questionRepo.getQuestionCount();
@@ -38,7 +17,7 @@ function generateLoanSegment(questionId: number, userInput: string): LoanSegment
 
     switch (questionId) {
         case 1:
-            result =loanAmount(userInput);
+            result = loanAmount(userInput);
             break;
         case 2:
             result = loanInterest(userInput);
@@ -55,31 +34,30 @@ function generateLoanSegment(questionId: number, userInput: string): LoanSegment
 
 const handleTextChange = (userInput: string, question: Question, dispatch: Dispatch<LoanSegment>): void => {
     const loanSegment: LoanSegment | undefined = generateLoanSegment(question.getId(), userInput);
-
     if (loanSegment !== undefined) {
-        console.log(JSON.stringify(loanSegment));
         dispatch(loanSegment);
     }
 };
 
-const handleQuestionResponse = (props: QuestionnaireProps, question: Question): void => {
+const handleQuestionResponse = (question: Question, history: History): void => {
     const nextPage: string = '/Questionnaire/' + ((question.getId() === questionCount) ? 'Result' : (question.getId() + 1).toString());
-    props.history.push(nextPage);
+    history.push(nextPage);
 };
 
-function getQuestionFromArray(questionId: string): Question | undefined {
+function getQuestionFromArray(questionId: string | undefined): Question | undefined {
     let result: Question | undefined = undefined;
-    const potentialNumber: number = parseInt(questionId);
+    if (questionId !== undefined) {
+        const potentialNumber: number = parseInt(questionId);
 
-    if (!isNaN(potentialNumber)) {
-        result = questionRepo.get(potentialNumber);
+        if (!isNaN(potentialNumber)) {
+            result = questionRepo.get(potentialNumber);
+        }
     }
-
     return result;
-};
+}
 
-function generateSuccessfulQuestion(props: QuestionnaireProps, question: Question, dispatch: Dispatch<LoanSegment>): ReactElement {
-    const onClickNext = (): void => handleQuestionResponse(props, question);
+function generateSuccessfulQuestion(question: Question, dispatch: Dispatch<LoanSegment>, history: History): ReactElement {
+    const onClickNext = (): void => handleQuestionResponse(question, history);
 
     return (
         <div>
@@ -112,14 +90,16 @@ function getPageBreadcrumbProps(question: Question | undefined): BreadcrumbListP
     return {parentItems: navParentProps, currentItem: navCurrentProps};
 }
 
-function getReactiveContent(props: QuestionnaireProps, question: Question | undefined, dispatch: Dispatch<LoanSegment>): ReactElement {
-    return (question === undefined) ? undefinedQuestionElement() : generateSuccessfulQuestion(props, question, dispatch);
+function getReactiveContent(question: Question | undefined, dispatch: Dispatch<LoanSegment>, history: History): ReactElement {
+    return (question === undefined) ? undefinedQuestionElement() : generateSuccessfulQuestion(question, dispatch, history);
 }
 
-export const Questionnaire: React.FC<QuestionnaireProps> = (props: QuestionnaireProps) => {
+export const Questionnaire: React.FC = () => {
     const dispatch: Dispatch<LoanSegment> = useDispatch();
-    const question: Question | undefined = getQuestionFromArray(props.match.params.questionId);
-    const reactiveContent: ReactElement = getReactiveContent(props, question, dispatch);
+    const history: History = useHistory();
+    const {questionId} = useParams();
+    const question: Question | undefined = getQuestionFromArray(questionId);
+    const reactiveContent: ReactElement = getReactiveContent(question, dispatch, history);
 
     return (
         <MainContent breadcrumbData={getPageBreadcrumbProps(question)} reactiveContent={reactiveContent} />
