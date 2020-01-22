@@ -6,7 +6,7 @@ import {History} from "history";
 import {default as React} from "react";
 
 const homeContent = (history: History) => {
-    const start = (): void => history.push('Questionnaire');
+    const start = (): void => history.push('Questionnaire/1');
     return (
         <div>
             <h1 className="govuk-heading-xl">Loan calculator</h1>

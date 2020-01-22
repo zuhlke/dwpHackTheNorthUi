@@ -40,8 +40,12 @@ const handleTextChange = (userInput: string, question: Question, dispatch: Dispa
 };
 
 const handleQuestionResponse = (question: Question, history: History): void => {
-    const nextPage: string = '/Questionnaire/' + ((question.getId() === questionCount) ? 'Result' : (question.getId() + 1).toString());
-    history.push(nextPage);
+    if (question.getId() === questionCount) {
+        history.push("/Result");
+    } else {
+        const nextPage: string = '/Questionnaire/' + (question.getId() + 1).toString();
+        history.push(nextPage);
+    }
 };
 
 function getQuestionFromArray(questionId: string | undefined): Question | undefined {
@@ -64,7 +68,7 @@ function generateSuccessfulQuestion(question: Question, dispatch: Dispatch<LoanS
             <h1 className="govuk-heading-x1">{question.getQuestionString()}</h1>
             <br />
             <form>
-                <input className="govuk-input govuk-input--width-10" type="text" name={question.getId().toString()} onChange={(text): void => handleTextChange(text.target.value, question, dispatch)}/>
+                <input className="govuk-input govuk-input--width-10" type="text" onChange={(text): void => handleTextChange(text.target.value, question, dispatch)}/>
                 <br /><br /><br />
                 <Button text="Continue" onClick={onClickNext} arrow={false}/>
             </form>
@@ -102,6 +106,6 @@ export const Questionnaire: React.FC = () => {
     const reactiveContent: ReactElement = getReactiveContent(question, dispatch, history);
 
     return (
-        <MainContent breadcrumbData={getPageBreadcrumbProps(question)} reactiveContent={reactiveContent} />
+       <MainContent breadcrumbData={getPageBreadcrumbProps(question)} reactiveContent={reactiveContent} />
     );
 };
