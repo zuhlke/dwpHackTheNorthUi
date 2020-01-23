@@ -39,12 +39,8 @@ const handleTextChange = (userInput: string, question: Question, dispatch: Dispa
     }
 };
 
-const handleQuestionResponse = (question: Question, history: History, setQuestionId: (questionId: number) => void): void => {
-    if (question.getId() === questionCount) {
-        history.push("/Result");
-    } else {
-        setQuestionId(question.getId() + 1);
-    }
+const handleQuestionResponse = (history: History): void => {
+    history.push("/Result");
 };
 
 function getQuestionFromArray(questionId: number): Question | undefined {
@@ -52,8 +48,8 @@ function getQuestionFromArray(questionId: number): Question | undefined {
     return result;
 }
 
-function generateSuccessfulQuestion(question: Question, dispatch: Dispatch<LoanSegment>, history: History, setQuestionId: (questionId: number) => void): ReactElement {
-    const onClickNext = (): void => handleQuestionResponse(question, history, setQuestionId);
+function generateSuccessfulQuestion(question: Question, dispatch: Dispatch<LoanSegment>, history: History): ReactElement {
+    const onClickNext = (): void => handleQuestionResponse(history);
 
     return (
         <div>
@@ -86,20 +82,18 @@ function getPageBreadcrumbProps(question: Question | undefined): BreadcrumbListP
     return {parentItems: navParentProps, currentItem: navCurrentProps};
 }
 
-function getReactiveContent(question: Question | undefined, dispatch: Dispatch<LoanSegment>, history: History, setQuestionId: (questionId: number) => void): ReactElement {
-    return (question === undefined) ? undefinedQuestionElement() : generateSuccessfulQuestion(question, dispatch, history, setQuestionId);
+function getReactiveContent(question: Question | undefined, dispatch: Dispatch<LoanSegment>, history: History): ReactElement {
+    return (question === undefined) ? undefinedQuestionElement() : generateSuccessfulQuestion(question, dispatch, history);
 }
 
-export const Questionnaire: React.FC = () => {
+export const Questionnaire3: React.FC = () => {
     const dispatch: Dispatch<LoanSegment> = useDispatch();
     const history: History = useHistory();
-    const [questionId, setQuestionId] = useState(1);
+    const questionId = 3;
     const question: Question | undefined = getQuestionFromArray(questionId);
-    const reactiveContent: ReactElement = getReactiveContent(question, dispatch, history, setQuestionId);
+    const reactiveContent: ReactElement = getReactiveContent(question, dispatch, history);
 
     return (
        <MainContent breadcrumbData={getPageBreadcrumbProps(question)} reactiveContent={reactiveContent} />
     );
-
-
 };
