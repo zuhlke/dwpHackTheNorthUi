@@ -1,4 +1,4 @@
-import {default as React, Dispatch, ReactElement, useState} from 'react';
+import { default as React, Dispatch, ReactElement } from 'react';
 import { useDispatch } from 'react-redux';
 import { useHistory, useParams } from 'react-router-dom';
 import { BreadcrumbCurrentProps, BreadcrumbListItemProps, BreadcrumbListProps } from '../common/Breadcrumb/Breadcrumb';
@@ -39,21 +39,29 @@ const handleTextChange = (userInput: string, question: Question, dispatch: Dispa
     }
 };
 
-const handleQuestionResponse = (question: Question, history: History, setQuestionId: (questionId: number) => void): void => {
+const handleQuestionResponse = (question: Question, history: History): void => {
     if (question.getId() === questionCount) {
         history.push("/Result");
     } else {
-        setQuestionId(question.getId() + 1);
+        const nextPage: string = '/Questionnaire/' + (question.getId() + 1).toString();
+        history.push(nextPage);
     }
 };
 
-function getQuestionFromArray(questionId: number): Question | undefined {
-    const result: Question | undefined = questionRepo.get(questionId);
+function getQuestionFromArray(questionId: string | undefined): Question | undefined {
+    let result: Question | undefined = undefined;
+    if (questionId !== undefined) {
+        const potentialNumber: number = parseInt(questionId);
+
+        if (!isNaN(potentialNumber)) {
+            result = questionRepo.get(potentialNumber);
+        }
+    }
     return result;
 }
 
-function generateSuccessfulQuestion(question: Question, dispatch: Dispatch<LoanSegment>, history: History, setQuestionId: (questionId: number) => void): ReactElement {
-    const onClickNext = (): void => handleQuestionResponse(question, history, setQuestionId);
+function generateSuccessfulQuestion(question: Question, dispatch: Dispatch<LoanSegment>, history: History): ReactElement {
+    const onClickNext = (): void => handleQuestionResponse(question, history);
 
     return (
         <div>
@@ -81,25 +89,23 @@ function getPageBreadcrumbProps(question: Question | undefined): BreadcrumbListP
     const navParentProps: BreadcrumbListItemProps[] = [
         { href: "/", visibleText: "Home: Loan Calculator" },
         { href: "/Questionnaire", visibleText: "Questionnaire" },
-    ];    
+    ];
 
     return {parentItems: navParentProps, currentItem: navCurrentProps};
 }
 
-function getReactiveContent(question: Question | undefined, dispatch: Dispatch<LoanSegment>, history: History, setQuestionId: (questionId: number) => void): ReactElement {
-    return (question === undefined) ? undefinedQuestionElement() : generateSuccessfulQuestion(question, dispatch, history, setQuestionId);
+function getReactiveContent(question: Question | undefined, dispatch: Dispatch<LoanSegment>, history: History): ReactElement {
+    return (question === undefined) ? undefinedQuestionElement() : generateSuccessfulQuestion(question, dispatch, history);
 }
 
 export const Questionnaire: React.FC = () => {
     const dispatch: Dispatch<LoanSegment> = useDispatch();
     const history: History = useHistory();
-    const [questionId, setQuestionId] = useState(1);
+    const {questionId} = useParams();
     const question: Question | undefined = getQuestionFromArray(questionId);
-    const reactiveContent: ReactElement = getReactiveContent(question, dispatch, history, setQuestionId);
+    const reactiveContent: ReactElement = getReactiveContent(question, dispatch, history);
 
     return (
-       <MainContent breadcrumbData={getPageBreadcrumbProps(question)} reactiveContent={reactiveContent} />
+        <MainContent breadcrumbData={getPageBreadcrumbProps(question)} reactiveContent={reactiveContent} />
     );
-
-
 };
