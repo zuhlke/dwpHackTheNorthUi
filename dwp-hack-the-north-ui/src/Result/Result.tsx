@@ -14,7 +14,6 @@ function getBreadcrumbInformation(): BreadcrumbListProps {
         currentItem: {visibleText: 'Results'},
         parentItems: [
             {href: '/', visibleText: 'Home'},
-            {href: '/Questionnaire', visibleText: 'Questionnaire'}
         ]
     };
 }

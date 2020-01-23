@@ -88,7 +88,7 @@ function getPageBreadcrumbProps(question: Question | undefined): BreadcrumbListP
     const navCurrentProps: BreadcrumbCurrentProps = { visibleText: currentQuestion };
     const navParentProps: BreadcrumbListItemProps[] = [
         { href: "/", visibleText: "Home: Loan Calculator" },
-        { href: "/Questionnaire", visibleText: "Questionnaire" },
+        { href: "/Questionnaire/1", visibleText: "Questionnaire" },
     ];
 
     return {parentItems: navParentProps, currentItem: navCurrentProps};
