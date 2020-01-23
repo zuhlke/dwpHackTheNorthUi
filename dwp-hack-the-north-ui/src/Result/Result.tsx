@@ -1,9 +1,9 @@
-import React, { ReactElement } from 'react';
-import { useSelector } from 'react-redux';
-import { BreadcrumbListProps } from '../common/Breadcrumb/Breadcrumb';
-import { MainContent } from '../common/Content/MainContent';
-import { QuestionState } from '../reducers/QuestionState';
-import { LoanCalculator } from './Calculator/Loan';
+import React, {ReactElement} from 'react';
+import {useSelector} from 'react-redux';
+import {BreadcrumbListProps} from '../common/Breadcrumb/Breadcrumb';
+import {MainContent} from '../common/Content/MainContent';
+import {QuestionState} from '../reducers/QuestionState';
+import {LoanCalculator} from './Calculator/Loan';
 
 interface ResultProps {
     loan: LoanCalculator;

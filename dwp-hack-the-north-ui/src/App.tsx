@@ -1,11 +1,11 @@
-import React, { FC } from 'react';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import React, {FC} from 'react';
+import {BrowserRouter, Route, Switch} from 'react-router-dom';
 import './App.scss';
-import { Footer } from "./common/Footer";
-import { Header } from "./common/Header";
-import { Home } from "./Home/Home";
-import { Questionnaire } from './Questionnaire/Questionnaire';
-import { Result } from './Result/Result';
+import {Footer} from "./common/Footer";
+import {Header} from "./common/Header";
+import {Home} from "./Home/Home";
+import {Questionnaire} from './Questionnaire/Questionnaire';
+import {Result} from './Result/Result';
 
 export const App: FC = () => {
     return <div>

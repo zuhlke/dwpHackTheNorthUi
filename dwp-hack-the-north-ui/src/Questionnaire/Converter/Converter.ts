@@ -1,4 +1,4 @@
-import { Answer, UserAnswer } from '../Answer/Answer';
+import {Answer, UserAnswer} from '../Answer/Answer';
 
 export interface Converter<S, T> {
     convert(source: S): T | undefined;

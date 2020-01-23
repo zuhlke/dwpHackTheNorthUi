@@ -1,13 +1,13 @@
-import React, { Dispatch, FC, ReactElement } from 'react';
-import { useDispatch } from 'react-redux';
-import { useHistory, useParams } from 'react-router-dom';
-import { BreadcrumbCurrentProps, BreadcrumbListItemProps, BreadcrumbListProps } from '../common/Breadcrumb/Breadcrumb';
-import { Button } from '../common/Button/Button';
-import { MainContent } from '../common/Content/MainContent';
-import { loanAmount, loanInterest, LoanSegment, loanTime } from '../reducers/QuestionState';
-import { Question } from './Question/Question';
-import { InMemoryQuestionRepository, QuestionRepository } from './Question/QuestionRepo';
-import { History } from "history";
+import React, {Dispatch, FC, ReactElement} from 'react';
+import {useDispatch} from 'react-redux';
+import {useHistory, useParams} from 'react-router-dom';
+import {BreadcrumbCurrentProps, BreadcrumbListItemProps, BreadcrumbListProps} from '../common/Breadcrumb/Breadcrumb';
+import {Button} from '../common/Button/Button';
+import {MainContent} from '../common/Content/MainContent';
+import {loanAmount, loanInterest, LoanSegment, loanTime} from '../reducers/QuestionState';
+import {Question} from './Question/Question';
+import {InMemoryQuestionRepository, QuestionRepository} from './Question/QuestionRepo';
+import {History} from "history";
 
 const questionRepo: QuestionRepository = InMemoryQuestionRepository.createDefaultInstance();
 const questionCount = questionRepo.getQuestionCount();

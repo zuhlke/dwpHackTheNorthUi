@@ -1,5 +1,5 @@
-import { BreadcrumbList, BreadcrumbListProps } from '../Breadcrumb/Breadcrumb';
-import React, { FC, ReactElement } from 'react';
+import {BreadcrumbList, BreadcrumbListProps} from '../Breadcrumb/Breadcrumb';
+import React, {FC, ReactElement} from 'react';
 
 export interface MainContentData {
     breadcrumbData: BreadcrumbListProps;

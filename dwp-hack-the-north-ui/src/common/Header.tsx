@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import React, {FC} from 'react'
 import logo from "govuk-frontend/govuk/assets/images/govuk-logotype-crown.png";
 
 export const Header: FC = () => {

@@ -1,5 +1,5 @@
-import { Question } from './Question';
-import { QuestionRepository, InMemoryQuestionRepository } from './QuestionRepo';
+import {Question} from './Question';
+import {InMemoryQuestionRepository, QuestionRepository} from './QuestionRepo';
 
 export const questionOneId = 1;
 export const questionTwoId = 2;

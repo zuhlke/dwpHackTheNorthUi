@@ -1,4 +1,4 @@
-import { Loan, LoanAmount, LoanCalculator, LoanInterest, LoanTime } from './Loan';
+import {Loan, LoanAmount, LoanCalculator, LoanInterest, LoanTime} from './Loan';
 
 const oneHundredThousand: LoanAmount = LoanAmount.from(100000);
 

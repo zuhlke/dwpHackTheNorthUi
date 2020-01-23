@@ -1,6 +1,6 @@
-import { answerOne } from '../Answer/AnswerRepo.test';
-import { UserAnswer, Answer } from '../Answer/Answer';
-import { NumericAnswerConverter, Converter } from './Converter';
+import {answerOne} from '../Answer/AnswerRepo.test';
+import {Answer, UserAnswer} from '../Answer/Answer';
+import {Converter, NumericAnswerConverter} from './Converter';
 
 export const userAnswerOne: UserAnswer = {id: 1, questionId: 1, answer: '100'};
 export const userAnswerTwo: UserAnswer = {questionId: 2, answer: '200'};

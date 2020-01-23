@@ -1,9 +1,9 @@
 import React from 'react';
-import { render } from '@testing-library/react';
-import { App } from './App';
-import { createStore } from 'redux';
-import { QuestionState, LoanSegment, LOAN_SEGMENT_AMOUNT } from './reducers/QuestionState';
-import { Provider } from 'react-redux';
+import {render} from '@testing-library/react';
+import {App} from './App';
+import {createStore} from 'redux';
+import {LOAN_SEGMENT_AMOUNT, LoanSegment, QuestionState} from './reducers/QuestionState';
+import {Provider} from 'react-redux';
 
 const testReducer = (state: QuestionState = {}, action: LoanSegment): QuestionState => {
   let result = state;

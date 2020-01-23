@@ -1,5 +1,5 @@
-import { Action } from 'redux';
-import { LoanAmount, LoanInterest, LoanTime } from '../Result/Calculator/Loan';
+import {Action} from 'redux';
+import {LoanAmount, LoanInterest, LoanTime} from '../Result/Calculator/Loan';
 
 export const LOAN_SEGMENT_AMOUNT = "LOAN_SEGMENT_AMOUNT";
 export const LOAN_SEGMENT_INTEREST = "LOAN_SEGMENT_INTEREST";

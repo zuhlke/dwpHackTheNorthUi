@@ -1,10 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Provider } from 'react-redux';
-import { createStore, Store } from 'redux';
-import { App } from './App';
+import {Provider} from 'react-redux';
+import {createStore, Store} from 'redux';
+import {App} from './App';
 import './index.scss';
-import { questionReducer, LoanSegment, QuestionState } from './reducers/QuestionState';
+import {LoanSegment, questionReducer, QuestionState} from './reducers/QuestionState';
 import * as serviceWorker from './serviceWorker';
 
 const questionState: Store<QuestionState, LoanSegment> = createStore(questionReducer);
