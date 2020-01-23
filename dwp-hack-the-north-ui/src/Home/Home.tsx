@@ -3,9 +3,9 @@ import { BreadcrumbListProps } from '../common/Breadcrumb/Breadcrumb';
 import { Button } from "../common/Button/Button";
 import { MainContent } from '../common/Content/MainContent';
 import { History } from "history";
-import React, { FC } from "react";
+import React, { FC, ReactElement } from "react";
 
-const homeContent = (history: History) => {
+const homeContent = (history: History): ReactElement => {
     const start = (): void => history.push('Questionnaire/1');
     return (
         <div>

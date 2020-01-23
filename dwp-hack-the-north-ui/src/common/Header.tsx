@@ -8,7 +8,7 @@ export const Header: FC = () => {
                 <div className="govuk-header__logo">
                     <a href="/" className="govuk-header__link govuk-header__link--homepage">
                         <img alt="logo" src={logo} className="govuk-header__logotype-crown-fallback-image" width="36"
-                             height="32"></img>
+                             height="32"/>
                         <span className="govuk-header__logotype-text"> GOV.UK </span>
                     </a>
                 </div>

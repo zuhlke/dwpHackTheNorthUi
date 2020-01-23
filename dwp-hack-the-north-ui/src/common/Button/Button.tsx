@@ -13,7 +13,7 @@ const handleClick = (event: MouseEvent<HTMLButtonElement>, props: ButtonProps): 
 
 export const Button: FC<ButtonProps> = (props: ButtonProps) => {
     return (
-        <button className="govuk-button" data-module="govuk-button" onClick={event => handleClick(event, props)}>
+        <button className="govuk-button" data-module="govuk-button" onClick={(event): void => handleClick(event, props)}>
             <span>
                 {props.text}
                 {props.arrow &&

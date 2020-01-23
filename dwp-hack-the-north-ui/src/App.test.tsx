@@ -7,15 +7,13 @@ import { Provider } from 'react-redux';
 
 const testReducer = (state: QuestionState = {}, action: LoanSegment): QuestionState => {
   let result = state;
-  
-  switch (action.type) {
-    case LOAN_SEGMENT_AMOUNT:
-      result = Object.assign({}, state, {
-        amount: action.payload,
-        interest: state.interest,
-        time: state.time
-      });
-      break;
+
+  if (action.type === LOAN_SEGMENT_AMOUNT) {
+    result = Object.assign({}, state, {
+      amount: action.payload,
+      interest: state.interest,
+      time: state.time
+    });
   }
 
   return result;
