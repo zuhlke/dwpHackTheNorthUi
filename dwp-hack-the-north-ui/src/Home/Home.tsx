@@ -1,9 +1,9 @@
-import {useHistory} from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { BreadcrumbListProps } from '../common/Breadcrumb/Breadcrumb';
 import { Button } from "../common/Button/Button";
 import { MainContent } from '../common/Content/MainContent';
-import {History} from "history";
-import {default as React} from "react";
+import { History } from "history";
+import React, { FC } from "react";
 
 const homeContent = (history: History) => {
     const start = (): void => history.push('Questionnaire/1');
@@ -21,7 +21,7 @@ const homeContent = (history: History) => {
     );
 };
 
-export const Home: React.FC = () => {
+export const Home: FC = () => {
     const history: History = useHistory();
     const breadcrumbProps: BreadcrumbListProps = {parentItems: [], currentItem: {visibleText: "Home: Loan Calculator"}};
     return (

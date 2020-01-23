@@ -1,13 +1,12 @@
 import { BreadcrumbList, BreadcrumbListProps } from '../Breadcrumb/Breadcrumb';
-import { ReactElement } from 'react';
-import React from 'react';
+import React, { FC, ReactElement } from 'react';
 
 export interface MainContentData {
     breadcrumbData: BreadcrumbListProps;
     reactiveContent: ReactElement;
 }
 
-export const MainContent: React.FC<MainContentData> = (contentData: MainContentData) => {
+export const MainContent: FC<MainContentData> = (contentData: MainContentData) => {
     return (
         <div className="govuk-width-container">
             <BreadcrumbList parentItems={contentData.breadcrumbData.parentItems} currentItem={contentData.breadcrumbData.currentItem} />

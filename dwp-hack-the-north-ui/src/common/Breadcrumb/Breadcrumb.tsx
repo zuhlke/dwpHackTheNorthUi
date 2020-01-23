@@ -1,5 +1,4 @@
-import React from 'react'
-import { ReactElement } from 'react';
+import React, { FC, ReactElement } from 'react'
 
 export interface BreadcrumbListItemProps extends BreadcrumbCurrentProps {
     href: string;
@@ -14,7 +13,7 @@ export interface BreadcrumbListProps {
     currentItem: BreadcrumbCurrentProps;
 }
 
-export const BreadcrumbListItem = (props: BreadcrumbListItemProps): ReactElement => {
+const BreadcrumbListItem = (props: BreadcrumbListItemProps): ReactElement => {
     return (
         <li className="govuk-breadcrumbs__list-item" key={props.visibleText}>
             <a className="govuk-breadcrumbs__link" href={props.href}>{props.visibleText}</a>
@@ -22,13 +21,13 @@ export const BreadcrumbListItem = (props: BreadcrumbListItemProps): ReactElement
     );
 };
 
-export const BreadcrumbCurrentItem = (props: BreadcrumbCurrentProps): ReactElement => {
+const BreadcrumbCurrentItem = (props: BreadcrumbCurrentProps): ReactElement => {
     return (
         <li className="govuk-breadcrumbs__list-item" aria-current="page" key={props.visibleText}>{props.visibleText}</li>
     );
 };
 
-export const BreadcrumbList = (props: BreadcrumbListProps): ReactElement => {
+export const BreadcrumbList: FC<BreadcrumbListProps> = (props: BreadcrumbListProps) => {
     const breadcrumbParents: ReactElement[] = [];
     
     props.parentItems.forEach((element) => {

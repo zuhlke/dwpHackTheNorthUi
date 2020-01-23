@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import './App.scss';
 import { Footer } from "./common/Footer";
@@ -7,7 +7,7 @@ import { Home } from "./Home/Home";
 import { Questionnaire } from './Questionnaire/Questionnaire';
 import { Result } from './Result/Result';
 
-export const App: React.FC = () => {
+export const App: FC = () => {
     return <div>
         <Header/>
         <div className="App">

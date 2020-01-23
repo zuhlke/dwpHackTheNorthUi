@@ -1,4 +1,4 @@
-import { default as React, Dispatch, ReactElement } from 'react';
+import React, { Dispatch, FC, ReactElement } from 'react';
 import { useDispatch } from 'react-redux';
 import { useHistory, useParams } from 'react-router-dom';
 import { BreadcrumbCurrentProps, BreadcrumbListItemProps, BreadcrumbListProps } from '../common/Breadcrumb/Breadcrumb';
@@ -98,7 +98,7 @@ function getReactiveContent(question: Question | undefined, dispatch: Dispatch<L
     return (question === undefined) ? undefinedQuestionElement() : generateSuccessfulQuestion(question, dispatch, history);
 }
 
-export const Questionnaire: React.FC = () => {
+export const Questionnaire: FC = () => {
     const dispatch: Dispatch<LoanSegment> = useDispatch();
     const history: History = useHistory();
     const {questionId} = useParams();

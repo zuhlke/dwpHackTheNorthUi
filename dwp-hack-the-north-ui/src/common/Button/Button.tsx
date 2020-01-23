@@ -1,5 +1,4 @@
-import { FC, MouseEvent } from 'react';
-import React from 'react';
+import React, { FC, MouseEvent } from 'react';
 
 interface ButtonProps {
     text: string;
