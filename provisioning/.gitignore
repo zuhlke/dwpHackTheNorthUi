@@ -257,8 +257,6 @@ temp/
 **/*.backup.*
 **/*.back.*
 
-node_modules
-
 *.sublime*
 
 psd

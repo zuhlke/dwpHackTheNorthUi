@@ -9,7 +9,8 @@ export interface MainContentData {
 export const MainContent: FC<MainContentData> = (contentData: MainContentData) => {
     return (
         <div className="govuk-width-container">
-            <BreadcrumbList parentItems={contentData.breadcrumbData.parentItems} currentItem={contentData.breadcrumbData.currentItem} />
+            <BreadcrumbList parentItems={contentData.breadcrumbData.parentItems}
+                            currentItem={contentData.breadcrumbData.currentItem} />
             <main className="govuk-main-wrapper " id="main-content" role="main">
                 <div className="govuk-grid-row">
                     <div className="govuk-grid-column-two-thirds">

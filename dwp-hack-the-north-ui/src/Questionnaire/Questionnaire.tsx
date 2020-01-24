@@ -68,7 +68,8 @@ function generateSuccessfulQuestion(question: Question, dispatch: Dispatch<LoanS
             <h1 className="govuk-heading-x1">{question.getQuestionString()}</h1>
             <br />
             <form>
-                <input className="govuk-input govuk-input--width-10" type="text" onChange={(text): void => handleTextChange(text.target.value, question, dispatch)}/>
+                <input className="govuk-input govuk-input--width-10" type="text"
+                       onChange={(text): void => handleTextChange(text.target.value, question, dispatch)}/>
                 <br /><br /><br />
                 <Button text="Continue" onClick={onClickNext} arrow={false}/>
             </form>

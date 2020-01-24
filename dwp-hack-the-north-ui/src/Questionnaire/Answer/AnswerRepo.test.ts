@@ -34,10 +34,10 @@ test('An answer can be saved into the Repository', () => {
     const createdAnswer: Answer = Answer.of(4, 1, 100);
     const createdAnswerId: number | undefined = answerRepo.add(createdAnswer);
 
-    if (createdAnswerId !== undefined) {
-        expect(answerRepo.get(createdAnswerId)).toBe(createdAnswer);
-    } else {
+    if (createdAnswerId === undefined) {
         fail('The Created Answer ID should be defined!');
+    } else {
+        expect(answerRepo.get(createdAnswerId)).toBe(createdAnswer);
     }
 }, 100);
 
@@ -52,13 +52,13 @@ test('An answer with an undefined ID can be added, with an ID assigned to it', (
     const createdAnswer: Answer = Answer.new(questionOneId, 100);
     const createdAnswerId = answerRepo.add(createdAnswer);
 
-    if (createdAnswerId !== undefined) {
+    if (createdAnswerId === undefined) {
+        fail('The created Answer ID should not be undefined!');
+    } else {
         const returnedAnswer: Answer | undefined = answerRepo.get(createdAnswerId);
 
         expect(returnedAnswer?.getQuestionId()).toBe(createdAnswer.getQuestionId());
         expect(returnedAnswer?.getValue()).toBe(createdAnswer.getValue());
-    } else {
-        fail('The created Answer ID should not be undefined!');
     }
 
 }, 100);

@@ -11,7 +11,7 @@ export class HostingBucketStack extends Stack {
     constructor(scope: App, id: string, props: HostingBucketProps) {
         super(scope, id);
 
-        if ( (props.bucketName != null && props.bucketName != "") && (props.sourcePath != null && props.sourcePath != "")) {
+        if ((props.bucketName !== null && props.bucketName !== "") && (props.sourcePath !== null && props.sourcePath !== "")) {
             const deploymentBucket = new s3.Bucket(this, 'deployment-bucket', {
                 bucketName: props.bucketName,
                 websiteIndexDocument: 'index.html',
