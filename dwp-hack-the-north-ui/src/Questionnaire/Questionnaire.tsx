@@ -1,4 +1,4 @@
-import React, {Dispatch, FC, ReactElement} from 'react';
+import React, {Dispatch, FC, ReactElement, useState} from 'react';
 import {useDispatch} from 'react-redux';
 import {useHistory, useParams} from 'react-router-dom';
 import {BreadcrumbCurrentProps, BreadcrumbListItemProps, BreadcrumbListProps} from '../common/Breadcrumb/Breadcrumb';
@@ -32,14 +32,19 @@ function generateLoanSegment(questionId: number, userInput: string): LoanSegment
     return result;
 }
 
-const handleTextChange = (userInput: string, question: Question, dispatch: Dispatch<LoanSegment>): void => {
+const handleTextChange = (userInput: string,
+                          question: Question,
+                          dispatch: Dispatch<LoanSegment>,
+                          setValue: (value: string) => void): void => {
+    setValue(userInput);
     const loanSegment: LoanSegment | undefined = generateLoanSegment(question.getId(), userInput);
     if (loanSegment !== undefined) {
         dispatch(loanSegment);
     }
 };
 
-const handleQuestionResponse = (question: Question, history: History): void => {
+const handleQuestionResponse = (question: Question, history: History, setValue: (value: string) => void): void => {
+    setValue("");
     if (question.getId() === questionCount) {
         history.push("/Result");
     } else {
@@ -60,16 +65,22 @@ function getQuestionFromArray(questionId: string | undefined): Question | undefi
     return result;
 }
 
-function generateSuccessfulQuestion(question: Question, dispatch: Dispatch<LoanSegment>, history: History): ReactElement {
-    const onClickNext = (): void => handleQuestionResponse(question, history);
+function generateSuccessfulQuestion(question: Question,
+                                    dispatch: Dispatch<LoanSegment>,
+                                    history: History,
+                                    value: string,
+                                    setValue: (value: string) => void): ReactElement {
+    const onClickNext = (): void => handleQuestionResponse(question, history, setValue);
 
     return (
         <div>
             <h1 className="govuk-heading-x1">{question.getQuestionString()}</h1>
             <br />
             <form>
-                <input className="govuk-input govuk-input--width-10" type="text"
-                       onChange={(text): void => handleTextChange(text.target.value, question, dispatch)}/>
+                <input className="govuk-input govuk-input--width-10"
+                       type="text"
+                       value={value}
+                       onChange={(text): void => handleTextChange(text.target.value, question, dispatch, setValue)}/>
                 <br /><br /><br />
                 <Button text="Continue" onClick={onClickNext} arrow={false}/>
             </form>
@@ -95,16 +106,23 @@ function getPageBreadcrumbProps(question: Question | undefined): BreadcrumbListP
     return {parentItems: navParentProps, currentItem: navCurrentProps};
 }
 
-function getReactiveContent(question: Question | undefined, dispatch: Dispatch<LoanSegment>, history: History): ReactElement {
-    return (question === undefined) ? undefinedQuestionElement() : generateSuccessfulQuestion(question, dispatch, history);
+function getReactiveContent(question: Question | undefined,
+                            dispatch: Dispatch<LoanSegment>,
+                            history: History,
+                            value: string,
+                            setValue: (value: string) => void): ReactElement {
+    return (question === undefined)
+        ? undefinedQuestionElement()
+        : generateSuccessfulQuestion(question, dispatch, history, value, setValue);
 }
 
 export const Questionnaire: FC = () => {
+    const [value, setValue] = useState("");
     const dispatch: Dispatch<LoanSegment> = useDispatch();
     const history: History = useHistory();
     const {questionId} = useParams();
     const question: Question | undefined = getQuestionFromArray(questionId);
-    const reactiveContent: ReactElement = getReactiveContent(question, dispatch, history);
+    const reactiveContent: ReactElement = getReactiveContent(question, dispatch, history, value, setValue);
 
     return (
         <MainContent breadcrumbData={getPageBreadcrumbProps(question)} reactiveContent={reactiveContent} />
