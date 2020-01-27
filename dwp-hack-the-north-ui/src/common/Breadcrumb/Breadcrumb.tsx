@@ -1,7 +1,8 @@
-import React, {FC, ReactElement} from 'react'
+import React, {FC} from 'react'
 
 export interface BreadcrumbListItemProps extends BreadcrumbCurrentProps {
     href: string;
+    key?: number;
 }
 
 export interface BreadcrumbCurrentProps {
@@ -13,34 +14,29 @@ export interface BreadcrumbListProps {
     currentItem: BreadcrumbCurrentProps;
 }
 
-const BreadcrumbListItem = (props: BreadcrumbListItemProps): ReactElement => {
+const BreadcrumbListItem: FC<BreadcrumbListItemProps> = (props: BreadcrumbListItemProps) => {
     return (
-        <li className="govuk-breadcrumbs__list-item" key={props.visibleText}>
+        <li className="govuk-breadcrumbs__list-item" key={props.key}>
             <a className="govuk-breadcrumbs__link" href={props.href}>{props.visibleText}</a>
         </li>
     );
 };
 
-const BreadcrumbCurrentItem = (props: BreadcrumbCurrentProps): ReactElement => {
+const BreadcrumbCurrentItem: FC<BreadcrumbCurrentProps> = (props: BreadcrumbCurrentProps) => {
     return (
         <li className="govuk-breadcrumbs__list-item" aria-current="page" key={props.visibleText}>{props.visibleText}</li>
     );
 };
 
 export const BreadcrumbList: FC<BreadcrumbListProps> = (props: BreadcrumbListProps) => {
-    const breadcrumbParents: ReactElement[] = [];
-    
-    props.parentItems.forEach((element) => {
-        breadcrumbParents.push(BreadcrumbListItem(element));
-    });
-    breadcrumbParents.push(BreadcrumbCurrentItem(props.currentItem));
-
     return (
         <div className="govuk-breadcrumbs">
             <ol className="govuk-breadcrumbs__list">
-                {breadcrumbParents}
+                {props.parentItems.map((item, index) =>
+                    <BreadcrumbListItem {...item} key={index}/>
+                )}
+                <BreadcrumbCurrentItem {...props.currentItem}/>
             </ol>
         </div>
     );
-
 };

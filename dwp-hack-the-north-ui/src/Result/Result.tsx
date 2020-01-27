@@ -31,8 +31,8 @@ const Content: FC = () => {
                 <li>Loan Interest Rate: {questionState.interest?.getAnnualRate()}%</li>
                 <li>Loan Length: {questionState.time?.getMonthsTime()} Months</li>
                 <br/><br/>
-                <li>Incremental Payment: {loanCalculator?.getIncrementPaymentCost()}</li>
-                <li>Total Cost: {loanCalculator?.getTotalPaymentCost()}</li>
+                <li>Incremental Payment: £{loanCalculator?.getIncrementPaymentCost()}</li>
+                <li>Total Cost: £{loanCalculator?.getTotalPaymentCost()}</li>
             </ul>
         </div>
     );

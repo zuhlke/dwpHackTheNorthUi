@@ -71,7 +71,7 @@ export const DefinedQuestion: FC<QuestionProps> = (props: QuestionProps) => {
                        value={value}
                        onChange={(text): void => handleTextChange(text.target.value, setValue)}/>
                 <br /><br /><br />
-                <Button text="Continue" onClick={() => handleQuestionResponse(props.question, value, setValue, dispatch, history)} arrow={false}/>
+                <Button text="Continue" onClick={(): void => handleQuestionResponse(props.question, value, setValue, dispatch, history)} arrow={false}/>
             </form>
         </div>
     );

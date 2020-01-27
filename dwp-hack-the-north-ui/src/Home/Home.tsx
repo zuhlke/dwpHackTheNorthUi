@@ -3,9 +3,10 @@ import {BreadcrumbListProps} from '../common/Breadcrumb/Breadcrumb';
 import {Button} from "../common/Button/Button";
 import {MainContent} from '../common/Content/MainContent';
 import {History} from "history";
-import React, {FC, ReactElement} from "react";
+import React, {FC} from "react";
 
-const homeContent = (history: History): ReactElement => {
+const HomeContent: FC = () => {
+    const history: History = useHistory();
     const start = (): void => history.push('Questionnaire/1');
     return (
         <div>
@@ -22,11 +23,10 @@ const homeContent = (history: History): ReactElement => {
 };
 
 export const Home: FC = () => {
-    const history: History = useHistory();
     const breadcrumbProps: BreadcrumbListProps = {parentItems: [], currentItem: {visibleText: "Home: Loan Calculator"}};
     return (
         <div>
-            <MainContent breadcrumbData={breadcrumbProps} reactiveContent={homeContent(history)} />
+            <MainContent breadcrumbData={breadcrumbProps} reactiveContent={<HomeContent/>} />
         </div>
     )
 };
