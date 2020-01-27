@@ -1,5 +1,5 @@
 import s3 = require("@aws-cdk/aws-s3");
-import {App, RemovalPolicy, Stack} from "@aws-cdk/core";
+import {App, RemovalPolicy, Stack, Tag} from "@aws-cdk/core";
 import {BucketDeployment, Source} from "@aws-cdk/aws-s3-deployment";
 
 export interface HostingBucketProps {
