@@ -2,7 +2,6 @@ import React, {FC} from 'react'
 
 export interface BreadcrumbListItemProps extends BreadcrumbCurrentProps {
     href: string;
-    key?: number;
 }
 
 export interface BreadcrumbCurrentProps {
@@ -16,7 +15,7 @@ export interface BreadcrumbListProps {
 
 const BreadcrumbListItem: FC<BreadcrumbListItemProps> = (props: BreadcrumbListItemProps) => {
     return (
-        <li className="govuk-breadcrumbs__list-item" key={props.key}>
+        <li className="govuk-breadcrumbs__list-item" key={props.visibleText}>
             <a className="govuk-breadcrumbs__link" href={props.href}>{props.visibleText}</a>
         </li>
     );
@@ -33,7 +32,7 @@ export const BreadcrumbList: FC<BreadcrumbListProps> = (props: BreadcrumbListPro
         <div className="govuk-breadcrumbs">
             <ol className="govuk-breadcrumbs__list">
                 {props.parentItems.map((item, index) =>
-                    <BreadcrumbListItem {...item} key={index}/>
+                    <BreadcrumbListItem key={index} {...item}/>
                 )}
                 <BreadcrumbCurrentItem {...props.currentItem}/>
             </ol>
