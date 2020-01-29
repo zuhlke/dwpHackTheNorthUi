@@ -3,7 +3,7 @@ This package contains a Lambda function that establishes a connection to a remot
 
 ## Requirements
 Make sure the following distributions and packages are installed 
-1. The latest version of Go is installed (see [the Go installation guideline](https://golang.org/doc/install))
+1. The latest version of Go (see [the Go installation guideline](https://golang.org/doc/install))
 2. Lambda package: ```go get github.com/aws/aws-lambda-go/lambda``` 
 3. Mongo driver: ```go.mongodb.org/mongo-driver/mongo```
  
@@ -24,8 +24,8 @@ zip function.zip file-name
 ## Deploy a function to AWS
 To deploy a function, an AWS role is needed. Make sure to use an existing role, or create a new role for your function.
 ```bash
-aws lambda create-function --function-name <your-function-name> --runtime go1.x \
---zip-file fileb://function.zip --handler <name-of-the-executable> \
+aws lambda create-function --function-name your-function-name --runtime go1.x \
+--zip-file fileb://function.zip --handler name-of-the-executable \
 --role arn:aws:iam:numbers:role/execution role
 
 ```
