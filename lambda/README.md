@@ -26,6 +26,6 @@ To deploy a function, an AWS role is needed. Make sure to use an existing role, 
 ```bash
 aws lambda create-function --function-name your-function-name --runtime go1.x \
 --zip-file fileb://function.zip --handler name-of-the-executable \
---role arn:aws:iam:numbers:role/execution role
-
+--role arn:aws:iam:numbers:role/execution role \
+--environment "Variables={URI=your_connection_string,DATABASE_NAME=your_db_name,COLLECTION=your_collection}"
 ```
