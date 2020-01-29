@@ -61,6 +61,10 @@ func retrieveQuestions() ([]*Question, error) {
 
 	err = cur.Close(context.TODO())
 
+	if err != nil {
+		return nil, err
+	}
+
 	return questions, nil
 }
 
