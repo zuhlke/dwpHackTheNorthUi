@@ -24,12 +24,12 @@ const Content: FC = () => {
             <div>
                 <h1 className="govuk-heading-x1">Your Questionnaire Results</h1>
                 <ul className="govuk-list govuk-list--bullet">
-                    <li>Loan Amount: £{questionState.amount.getTotal()}</li>
+                    <li>Loan Amount: £{questionState.amount.getTotal().toFixed(2)}</li>
                     <li>Loan Interest Rate: {questionState.interest.getAnnualRate() * 100}%</li>
                     <li>Loan Length: {questionState.time.getMonthsTime()} Months</li>
                     <br/><br/>
-                    <li>Incremental Payment: £{loanCalculator.getIncrementPaymentCost()}</li>
-                    <li>Total Cost: £{loanCalculator.getTotalPaymentCost()}</li>
+                    <li>Incremental Payment: £{loanCalculator.getIncrementPaymentCost().toFixed(2)}</li>
+                    <li>Total Cost: £{loanCalculator.getTotalPaymentCost().toFixed(2)}</li>
                 </ul>
             </div>
         );
