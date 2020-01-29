@@ -7,6 +7,7 @@ import (
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
 	"log"
+	"os"
 )
 
 type Question struct {
@@ -14,8 +15,12 @@ type Question struct {
 	Text string
 }
 
+var uri = os.Getenv("URI")
+var dbName = os.Getenv("DATABASE_NAME")
+var collection = os.Getenv("COLLECTION")
+
 func retrieveQuestions() ([]*Question, error) {
-	clientOptions := options.Client().ApplyURI("")
+	clientOptions := options.Client().ApplyURI(uri)
 	client, err := mongo.Connect(context.TODO(), clientOptions)
 
 	if err != nil {
@@ -29,7 +34,7 @@ func retrieveQuestions() ([]*Question, error) {
 		return nil, err
 	}
 
-	collection := client.Database("").Collection("")
+	collection := client.Database(dbName).Collection(collection)
 	var questions []*Question
 
 	cur, err := collection.Find(context.TODO(), bson.D{{}}, options.Find())
@@ -54,7 +59,7 @@ func retrieveQuestions() ([]*Question, error) {
 		return nil, err
 	}
 
-	cur.Close(context.TODO())
+	err = cur.Close(context.TODO())
 
 	return questions, nil
 }
