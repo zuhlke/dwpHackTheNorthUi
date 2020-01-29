@@ -15,27 +15,27 @@ function getBreadcrumbInformation(): BreadcrumbListProps {
 }
 
 const Content: FC = () => {
+    let result = (<div></div>);
     const questionState: QuestionState = useSelector((state: QuestionState) => state);
-    let loanCalculator: LoanCalculator | undefined;
     if (questionState.amount !== undefined && questionState.interest !== undefined && questionState.time !== undefined) {
-        loanCalculator = Loan.of(questionState.amount, questionState.interest, questionState.time);
-    } else {
-        loanCalculator = undefined;
+        const loanCalculator: LoanCalculator = Loan.of(questionState.amount, questionState.interest, questionState.time);
+
+        result = (
+            <div>
+                <h1 className="govuk-heading-x1">Your Questionnaire Results</h1>
+                <ul className="govuk-list govuk-list--bullet">
+                    <li>Loan Amount: £{questionState.amount.getTotal()}</li>
+                    <li>Loan Interest Rate: {questionState.interest.getAnnualRate() * 100}%</li>
+                    <li>Loan Length: {questionState.time.getMonthsTime()} Months</li>
+                    <br/><br/>
+                    <li>Incremental Payment: £{loanCalculator.getIncrementPaymentCost()}</li>
+                    <li>Total Cost: £{loanCalculator.getTotalPaymentCost()}</li>
+                </ul>
+            </div>
+        );
     }
 
-    return (
-        <div>
-            <h1 className="govuk-heading-x1">Your Questionnaire Results</h1>
-            <ul className="govuk-list govuk-list--bullet">
-                <li>Loan Amount: £{questionState.amount?.getTotal()}</li>
-                <li>Loan Interest Rate: {questionState.interest?.getAnnualRate()}%</li>
-                <li>Loan Length: {questionState.time?.getMonthsTime()} Months</li>
-                <br/><br/>
-                <li>Incremental Payment: £{loanCalculator?.getIncrementPaymentCost()}</li>
-                <li>Total Cost: £{loanCalculator?.getTotalPaymentCost()}</li>
-            </ul>
-        </div>
-    );
+    return result;
 };
 
 export const Result: FC = () => {

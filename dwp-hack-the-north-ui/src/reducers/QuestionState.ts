@@ -31,7 +31,7 @@ export function loanAmount(userInput: string): LoanSegment {
 }
 
 export function loanInterest(userInput: string): LoanSegment {
-    const userInputNumeral = parseInt(userInput);
+    const userInputNumeral = (parseInt(userInput) / 100);
 
     return {
         type: LOAN_SEGMENT_INTEREST,
