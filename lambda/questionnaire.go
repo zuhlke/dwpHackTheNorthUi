@@ -25,6 +25,7 @@ func retrieveQuestions() ([]*Question, error) {
 
 	if err != nil {
 		log.Fatal(err)
+		return nil, err
 	}
 
 	err = client.Ping(context.TODO(), nil)
