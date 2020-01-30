@@ -63,6 +63,7 @@ export const DefinedQuestion: FC<QuestionProps> = (props: QuestionProps) => {
     const [value, setValue] = useState("");
     return (
         <div>
+            <span className="govuk-caption-xl">Question {props.question.getId()} of {questionCount}</span>
             <h1 className="govuk-heading-x1">{props.question.getQuestionString()}</h1>
             <br />
             <form>
