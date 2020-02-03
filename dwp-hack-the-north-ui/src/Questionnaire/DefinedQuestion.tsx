@@ -4,7 +4,7 @@ import {Question} from './Question/Question';
 import {History} from "history";
 import {useHistory} from "react-router-dom";
 import {InMemoryQuestionRepository, QuestionRepository} from "./Question/QuestionRepo";
-import {loanAmount, loanInterest, LoanSegment, loanTime} from "../reducers/Reducer";
+import {loanAmount, loanInterest, LoanSegmentActions, loanTime} from "../reducers/Reducer";
 import {useDispatch} from "react-redux";
 
 const questionRepo: QuestionRepository = InMemoryQuestionRepository.createDefaultInstance();
@@ -19,8 +19,8 @@ const handleTextChange = (userInput: string,
     setValue(userInput);
 };
 
-function generateLoanSegment(questionId: number, userInput: string): LoanSegment | undefined {
-    let result: LoanSegment | undefined = undefined;
+function generateLoanSegment(questionId: number, userInput: string): LoanSegmentActions | undefined {
+    let result: LoanSegmentActions | undefined = undefined;
 
     switch (questionId) {
         case 1:
@@ -42,9 +42,9 @@ function generateLoanSegment(questionId: number, userInput: string): LoanSegment
 const handleQuestionResponse = (question: Question,
                                 value: string,
                                 setValue: (value: string) => void,
-                                dispatch: Dispatch<LoanSegment>,
+                                dispatch: Dispatch<LoanSegmentActions>,
                                 history: History): void => {
-    const loanSegment: LoanSegment | undefined = generateLoanSegment(question.getId(), value);
+    const loanSegment: LoanSegmentActions | undefined = generateLoanSegment(question.getId(), value);
     if (loanSegment !== undefined) {
         setValue("");
         dispatch(loanSegment);
@@ -58,7 +58,7 @@ const handleQuestionResponse = (question: Question,
 };
 
 export const DefinedQuestion: FC<QuestionProps> = (props: QuestionProps) => {
-    const dispatch: Dispatch<LoanSegment> = useDispatch();
+    const dispatch: Dispatch<LoanSegmentActions> = useDispatch();
     const history: History = useHistory();
     const [value, setValue] = useState("");
     return (

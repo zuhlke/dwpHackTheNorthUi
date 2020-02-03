@@ -4,13 +4,13 @@ import {Provider} from 'react-redux';
 import {createStore, Store} from 'redux';
 import {App} from './App';
 import './index.scss';
-import {LoanSegment, reducer, UserInputState} from './reducers/Reducer';
+import {Actions, reducer, ReducerState} from './reducers/Reducer';
 import * as serviceWorker from './serviceWorker';
 
-const questionState: Store<UserInputState, LoanSegment> = createStore(reducer);
+const reducerState: Store<ReducerState, Actions> = createStore(reducer);
 
 ReactDOM.render(
-    <Provider store={questionState}>
+    <Provider store={reducerState}>
         <App />
     </Provider>,
     document.getElementById('root')
