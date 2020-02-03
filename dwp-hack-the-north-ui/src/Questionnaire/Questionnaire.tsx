@@ -6,7 +6,7 @@ import {Question} from './Question/Question';
 import {InMemoryQuestionRepository, QuestionRepository} from './Question/QuestionRepo';
 import {UndefinedQuestion} from "./UndefinedQuestion";
 import {DefinedQuestion} from "./DefinedQuestion";
-import {Questions, ReducerState, StoreAction, storeQuestions} from "../reducers/Reducer";
+import {QuestionState, ReducerState, StoreAction, storeQuestions} from "../reducers/Reducer";
 import {useDispatch, useSelector} from "react-redux";
 
 function getQuestionFromArray(questionId: string | undefined, listOfQuestions: Question[]): Question| undefined {
@@ -40,7 +40,7 @@ function getPageBreadcrumbProps(question: Question | undefined): BreadcrumbListP
 export const Questionnaire: FC = () => {
     const {questionId} = useParams();
     const dispatch: Dispatch<StoreAction> = useDispatch();
-    const questionState: Questions = useSelector((state: ReducerState) => state.questions);
+    const questionState: QuestionState = useSelector((state: ReducerState) => state.questions);
     const question: Question | undefined = getQuestionFromArray(questionId, questionState.questions);
     if (questionState.questions.length === 0) {
         const questionRepo: QuestionRepository = InMemoryQuestionRepository.createDefaultInstance();

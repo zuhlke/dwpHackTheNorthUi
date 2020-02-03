@@ -7,30 +7,27 @@ export const LOAN_SEGMENT_INTEREST = "LOAN_SEGMENT_INTEREST";
 export const LOAN_SEGMENT_TIME = "LOAN_SEGMENT_TIME";
 export const SAVE_QUESTIONS = "SAVE_QUESTIONS";
 
-interface LoanAmountSegment extends Action {
+interface LoanAmountAction extends Action {
     payload: LoanAmount;
 }
 
-interface LoanInterestSegment extends Action {
-    type: string;
+interface LoanInterestAction extends Action {
     payload: LoanInterest;
 }
 
-interface LoanTimeSegment extends Action {
-    type: string;
+interface LoanTimeAction extends Action {
     payload: LoanTime;
 }
 
-interface StoreQuestions extends Action {
-    type: string;
+interface StoreQuestionsAction extends Action {
     payload: Question[];
 }
 
-export type LoanSegment = LoanAmountSegment | LoanInterestSegment | LoanTimeSegment;
-export type StoreAction = StoreQuestions;
-export type Actions = LoanSegment | StoreQuestions;
+export type LoanSegmentActions = LoanAmountAction | LoanInterestAction | LoanTimeAction;
+export type StoreActions = StoreQuestionsAction;
+export type Actions = LoanSegmentActions | StoreActions;
 
-export function loanAmount(userInput: string): LoanSegment {
+export function loanAmount(userInput: string): LoanAmountAction {
     const userInputNumeral = parseInt(userInput);
 
     return {
@@ -39,7 +36,7 @@ export function loanAmount(userInput: string): LoanSegment {
     };
 }
 
-export function loanInterest(userInput: string): LoanSegment {
+export function loanInterest(userInput: string): LoanInterestAction {
     const userInputNumeral = (parseInt(userInput) / 100);
 
     return {
@@ -48,7 +45,7 @@ export function loanInterest(userInput: string): LoanSegment {
     };
 }
 
-export function loanTime(userInput: string): LoanSegment {
+export function loanTime(userInput: string): LoanTimeAction {
     const userInputNumeral = parseInt(userInput);
 
     return {
@@ -57,25 +54,25 @@ export function loanTime(userInput: string): LoanSegment {
     };
 }
 
-export function storeQuestions(questions: Question[]): StoreQuestions {
+export function storeQuestions(questions: Question[]): StoreQuestionsAction {
     return {
         type: SAVE_QUESTIONS,
         payload: questions
     };
 }
 
-export interface UserInput {
+export interface UserInputState {
     amount?: LoanAmount;
     interest?: LoanInterest;
     time?: LoanTime;
 }
 
 export interface ReducerState {
-    userInput: UserInput;
-    questions: Questions;
+    userInput: UserInputState;
+    questions: QuestionState;
 }
 
-export interface Questions {
+export interface QuestionState {
     questions: Question[];
 }
 
@@ -84,8 +81,8 @@ const initialState: ReducerState = {
     questions: {questions:[]}
 };
 
-const questionReducer =  (state: Questions, action: Actions): Questions => {
-    let result: Questions;
+const questionReducer =  (state: QuestionState, action: Actions): QuestionState => {
+    let result: QuestionState;
     switch (action.type) {
         case SAVE_QUESTIONS:
             result = Object.assign({}, state, {
@@ -100,8 +97,8 @@ const questionReducer =  (state: Questions, action: Actions): Questions => {
     return result;
 };
 
-const userInputReducer = (state: UserInput, action: Actions): UserInput => {
-    let result: UserInput;
+const userInputReducer = (state: UserInputState, action: Actions): UserInputState => {
+    let result: UserInputState;
 
     switch (action.type) {
         case LOAN_SEGMENT_AMOUNT:
