@@ -1,4 +1,4 @@
-package questionnaire
+package main
 
 import (
 	"context"
