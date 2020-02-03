@@ -3,7 +3,7 @@ import {Actions} from "./Reducer";
 
 export const SAVE_RESULTS = "SAVE_RESULTS";
 
-interface Result {
+export interface Result {
     monthlyPayment: number;
     totalCost: number;
 }
