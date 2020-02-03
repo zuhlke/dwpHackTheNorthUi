@@ -48,30 +48,57 @@ export function loanTime(userInput: string): LoanSegment {
     };
 }
 
-export interface QuestionState {
+export interface UserInput {
     amount?: LoanAmount;
     interest?: LoanInterest;
     time?: LoanTime;
 }
 
-export const questionReducer = (state: QuestionState = {}, action: LoanSegment): QuestionState => {
-    let result: QuestionState;
+export interface ReducerState {
+    userInput: UserInput;
+}
+
+const initialState: ReducerState = {
+    userInput: {}
+};
+
+const userInputReducer = (state: UserInput, action: LoanSegment): UserInput => {
+    let result: UserInput;
 
     switch (action.type) {
         case LOAN_SEGMENT_AMOUNT:
             result = Object.assign({}, state, {
                 amount: action.payload,
-              });
+            });
             break;
         case LOAN_SEGMENT_INTEREST:
             result = Object.assign({}, state, {
                 interest: action.payload,
-              });
+            });
             break;
         case LOAN_SEGMENT_TIME:
             result = Object.assign({}, state, {
                 time: action.payload
-              });
+            });
+            break;
+        default:
+            result = state;
+            break;
+    }
+
+    return result;
+};
+
+export const reducer = (state: ReducerState = initialState, action: LoanSegment): ReducerState => {
+    let result: ReducerState;
+
+    switch (action.type) {
+        case LOAN_SEGMENT_AMOUNT:
+        case LOAN_SEGMENT_INTEREST:
+        case LOAN_SEGMENT_TIME:
+            result = Object.assign({}, state, {
+                userInput: userInputReducer(state.userInput, action)
+            });
             break;
         default:
             result = state;

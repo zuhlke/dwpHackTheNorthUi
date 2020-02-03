@@ -4,10 +4,10 @@ import {Provider} from 'react-redux';
 import {createStore, Store} from 'redux';
 import {App} from './App';
 import './index.scss';
-import {LoanSegment, questionReducer, QuestionState} from './reducers/QuestionState';
+import {LoanSegment, reducer, UserInput} from './reducers/Reducer';
 import * as serviceWorker from './serviceWorker';
 
-const questionState: Store<QuestionState, LoanSegment> = createStore(questionReducer);
+const questionState: Store<UserInput, LoanSegment> = createStore(reducer);
 
 ReactDOM.render(
     <Provider store={questionState}>
