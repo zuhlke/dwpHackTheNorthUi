@@ -7,17 +7,20 @@ import {
     userInputReducer,
     UserInputState
 } from "./UserInputReducer";
+import {ResultActions, resultReducer, ResultState, SAVE_RESULTS} from "./ResultReducer";
 
-export type Actions = LoanSegmentActions | StoreActions;
+export type Actions = LoanSegmentActions | StoreActions | ResultActions;
 
 export interface ReducerState {
     userInput: UserInputState;
     questions: QuestionState;
+    results: ResultState;
 }
 
 const initialState: ReducerState = {
     userInput: {},
-    questions: {questions:[]}
+    questions: {questions:[]},
+    results: {}
 };
 
 export const reducer = (state: ReducerState = initialState, action: Actions): ReducerState => {
@@ -34,6 +37,11 @@ export const reducer = (state: ReducerState = initialState, action: Actions): Re
         case SAVE_QUESTIONS:
             result = Object.assign({}, state, {
                 questions: questionReducer(state.questions, action)
+            });
+            break;
+        case SAVE_RESULTS:
+            result = Object.assign({}, state, {
+                results: resultReducer(state.results, action)
             });
             break;
         default:
