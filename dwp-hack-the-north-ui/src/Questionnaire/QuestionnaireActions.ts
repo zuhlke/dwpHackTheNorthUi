@@ -11,7 +11,6 @@ export function getQuestions(dispatch: Dispatch<StoreActions>) {
         },
     })
         .then((response) => {
-            console.log(response);
             return response.json().then(json => {
                 if (response.ok) {
                     return json
@@ -21,7 +20,6 @@ export function getQuestions(dispatch: Dispatch<StoreActions>) {
             })
         })
         .then((myJson) => {
-            console.log(myJson);
             const questions: Question[] = [];
             for (const question of myJson) {
                 questions.push(Question.ofJson(question));
