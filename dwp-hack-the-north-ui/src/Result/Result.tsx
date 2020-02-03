@@ -2,8 +2,9 @@ import React, {FC} from 'react';
 import {useSelector} from 'react-redux';
 import {BreadcrumbListProps} from '../common/Breadcrumb/Breadcrumb';
 import {MainContent} from '../common/Content/MainContent';
-import {ReducerState, UserInputState} from '../reducers/Reducer';
+import {ReducerState} from '../reducers/Reducer';
 import {Loan, LoanCalculator} from './Calculator/Loan';
+import {UserInputState} from "../reducers/UserInputReducer";
 
 function getBreadcrumbInformation(): BreadcrumbListProps {
     return {

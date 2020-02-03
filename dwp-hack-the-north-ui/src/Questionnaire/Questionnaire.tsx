@@ -6,8 +6,9 @@ import {Question} from './Question/Question';
 import {InMemoryQuestionRepository, QuestionRepository} from './Question/QuestionRepo';
 import {UndefinedQuestion} from "./UndefinedQuestion";
 import {DefinedQuestion} from "./DefinedQuestion";
-import {QuestionState, ReducerState, StoreActions, storeQuestions} from "../reducers/Reducer";
 import {useDispatch, useSelector} from "react-redux";
+import {QuestionState, StoreActions, storeQuestions} from "../reducers/QuestionReducer";
+import {ReducerState} from "../reducers/Reducer";
 
 function getQuestionFromArray(questionId: string | undefined, listOfQuestions: Question[]): Question| undefined {
     let result: Question | undefined = undefined;
