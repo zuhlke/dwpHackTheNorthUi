@@ -6,24 +6,24 @@ import (
 )
 
 type LoanRequest struct {
-	loanAmount int
-	loanInterest float64
-	loanMonths int
+	LoanAmount int `json:"loanAmount"`
+	LoanInterest float64 `json:"loanInterest"`
+	LoanMonths int `json:"loanMonths"`
 }
 
 type LoanResult struct {
-	monthlyPayment float64
-	totalCost float64
+	MonthlyPayment float64 `json:"monthlyPayment"`
+	TotalCost float64 `json:"totalCost"`
 }
 
 func HandleRequest(ctx context.Context, request LoanRequest) (LoanResult, error) {
 	var loan = Loan{
-		loanAmount: LoanAmount{request.loanAmount},
-		loanInterest: LoanInterest{annualCompound: request.loanInterest},
-		loanTime: LoanTime{months: request.loanMonths},
+		loanAmount: LoanAmount{request.LoanAmount},
+		loanInterest: LoanInterest{annualCompound: request.LoanInterest},
+		loanTime: LoanTime{months: request.LoanMonths},
 	}
 
-	return LoanResult{monthlyPayment: loan.GetMonthlyPayment(), totalCost: loan.GetTotalCost()}, nil
+	return LoanResult{MonthlyPayment: loan.GetMonthlyPayment(), TotalCost: loan.GetTotalCost()}, nil
 }
 
 func main() {
