@@ -2,7 +2,7 @@ import React, {FC} from 'react';
 import {useSelector} from 'react-redux';
 import {BreadcrumbListProps} from '../common/Breadcrumb/Breadcrumb';
 import {MainContent} from '../common/Content/MainContent';
-import {QuestionState} from '../reducers/QuestionState';
+import {ReducerState, UserInput} from '../reducers/Reducer';
 import {Loan, LoanCalculator} from './Calculator/Loan';
 
 function getBreadcrumbInformation(): BreadcrumbListProps {
@@ -15,8 +15,8 @@ function getBreadcrumbInformation(): BreadcrumbListProps {
 }
 
 const Content: FC = () => {
-    let result = (<div></div>);
-    const questionState: QuestionState = useSelector((state: QuestionState) => state);
+    let result = (<div/>);
+    const questionState: UserInput = useSelector((state: ReducerState) => state.userInput);
     if (questionState.amount !== undefined && questionState.interest !== undefined && questionState.time !== undefined) {
         const loanCalculator: LoanCalculator = Loan.of(questionState.amount, questionState.interest, questionState.time);
 

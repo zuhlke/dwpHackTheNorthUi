@@ -4,7 +4,7 @@ import {Question} from './Question/Question';
 import {History} from "history";
 import {useHistory} from "react-router-dom";
 import {InMemoryQuestionRepository, QuestionRepository} from "./Question/QuestionRepo";
-import {loanAmount, loanInterest, LoanSegment, loanTime} from "../reducers/QuestionState";
+import {loanAmount, loanInterest, LoanSegment, loanTime} from "../reducers/Reducer";
 import {useDispatch} from "react-redux";
 
 const questionRepo: QuestionRepository = InMemoryQuestionRepository.createDefaultInstance();

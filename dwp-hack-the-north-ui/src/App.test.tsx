@@ -2,10 +2,10 @@ import React from 'react';
 import {render} from '@testing-library/react';
 import {App} from './App';
 import {createStore} from 'redux';
-import {LOAN_SEGMENT_AMOUNT, LoanSegment, QuestionState} from './reducers/QuestionState';
+import {LOAN_SEGMENT_AMOUNT, LoanSegment, UserInput} from './reducers/Reducer';
 import {Provider} from 'react-redux';
 
-const testReducer = (state: QuestionState = {}, action: LoanSegment): QuestionState => {
+const testReducer = (state: UserInput = {}, action: LoanSegment): UserInput => {
   let result = state;
 
   if (action.type === LOAN_SEGMENT_AMOUNT) {
