@@ -11,6 +11,10 @@ export class Question {
         return new Question(id, questionString);
     }
 
+    public static ofJson(json: any): Question {
+        return new Question(json.Id, json.Text);
+    }
+
     public getId(): number {
         return this.id;
     }

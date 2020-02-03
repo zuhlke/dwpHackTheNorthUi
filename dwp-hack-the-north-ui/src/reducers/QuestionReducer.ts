@@ -4,7 +4,7 @@ import {Actions} from "./Reducer";
 
 export const SAVE_QUESTIONS = "SAVE_QUESTIONS";
 
-interface StoreQuestionsAction extends Action {
+export interface StoreQuestionsAction extends Action {
     payload: Question[];
 }
 

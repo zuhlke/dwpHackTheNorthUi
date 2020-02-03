@@ -1,14 +1,18 @@
-import React, {Dispatch, FC} from 'react';
+import React, {FC} from 'react';
 import {useParams} from 'react-router-dom';
 import {BreadcrumbCurrentProps, BreadcrumbListItemProps, BreadcrumbListProps} from '../common/Breadcrumb/Breadcrumb';
 import {MainContent} from '../common/Content/MainContent';
 import {Question} from './Question/Question';
-import {InMemoryQuestionRepository, QuestionRepository} from './Question/QuestionRepo';
 import {UndefinedQuestion} from "./UndefinedQuestion";
 import {DefinedQuestion} from "./DefinedQuestion";
 import {useDispatch, useSelector} from "react-redux";
 import {QuestionState, StoreActions, storeQuestions} from "../reducers/QuestionReducer";
 import {ReducerState} from "../reducers/Reducer";
+import {getQuestions} from "./QuestionnaireActions";
+import {Dispatch} from "redux";
+import {InMemoryQuestionRepository, QuestionRepository} from "./Question/QuestionRepo";
+
+const LOCAL = false;
 
 function getQuestionFromArray(questionId: string | undefined, listOfQuestions: Question[]): Question| undefined {
     let result: Question | undefined = undefined;
@@ -44,8 +48,12 @@ export const Questionnaire: FC = () => {
     const questionState: QuestionState = useSelector((state: ReducerState) => state.questions);
     const question: Question | undefined = getQuestionFromArray(questionId, questionState.questions);
     if (questionState.questions.length === 0) {
-        const questionRepo: QuestionRepository = InMemoryQuestionRepository.createDefaultInstance();
-        dispatch(storeQuestions(questionRepo.getAll()));
+        if (LOCAL) {
+            const questionRepo: QuestionRepository = InMemoryQuestionRepository.createDefaultInstance();
+            dispatch(storeQuestions(questionRepo.getAll()));
+        } else {
+            getQuestions(dispatch);
+        }
     }
 
     return (
