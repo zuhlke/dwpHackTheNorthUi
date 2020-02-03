@@ -69,6 +69,6 @@ func retrieveQuestions() ([]*Question, error) {
 	return questions, nil
 }
 
-func gitmain() {
+func main() {
 	lambda.Start(retrieveQuestions)
 }
