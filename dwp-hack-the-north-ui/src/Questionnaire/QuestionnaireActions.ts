@@ -2,7 +2,7 @@ import {Dispatch} from "redux";
 import {QuestionActions, recordQuestions, retrievingQuestions} from "../reducers/QuestionReducer";
 import {Question} from "./Question/Question";
 
-export function getQuestions(dispatch: Dispatch<QuestionActions>) {
+export function getQuestions(dispatch: Dispatch<QuestionActions>): void {
 
     dispatch(retrievingQuestions());
 

@@ -3,7 +3,7 @@ import {RecordResultsActions, storeResults} from "../reducers/ResultReducer";
 import {AnswerState} from "../reducers/AnswerReducer";
 import {Result} from "./Result";
 
-export function getResults(dispatch: Dispatch<RecordResultsActions>, answers: AnswerState) {
+export function getResults(dispatch: Dispatch<RecordResultsActions>, answers: AnswerState): void {
 
     fetch('https://k9s9szlula.execute-api.eu-west-2.amazonaws.com/dev/loanresult', {
         method: "POST",
