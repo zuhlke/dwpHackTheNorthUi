@@ -36,3 +36,18 @@ func TestTotalCost(t *testing.T) {
 	t.Log("Can return a total cost based on Loan amount, time and interest rate")
 	Equal(t, 215838.0, loanOne.GetTotalCost())
 }
+
+func TestBeerPintsConversion(t *testing.T) {
+	t.Log("Can return the equivalent of the monthly payment in average priced pints of beer")
+	Equal(t, 163, loanOne.GetBeerCount())
+}
+
+func TestCigarettePacksConversion(t *testing.T) {
+	t.Log("Can return the equivalent of the monthly payment in average priced packs of cigarettes")
+	Equal(t, 55, loanOne.GetCigarettePackCount())
+}
+
+func TestPygmyGoatKidsConversion(t *testing.T) {
+	t.Log("Can return the equivalent of the monthly payment in average priced pygmy goat kids")
+	Equal(t, 4, loanOne.GetPygmyGoatKidsCount())
+}

@@ -22,8 +22,8 @@ type LoanAmount struct {
 // Loan contains the aggregated details of the loan.
 type Loan struct {
 	loanInterest LoanInterest
-	loanTime LoanTime
-	loanAmount LoanAmount
+	loanTime     LoanTime
+	loanAmount   LoanAmount
 }
 
 // GetYearsTime returns the number of years that the struct holds, as the
@@ -45,7 +45,11 @@ func (l Loan) GetDiscountFactor() float64 {
 
 func round(value float64, precision int) float64 {
 	var precisionDecimal = math.Pow(10.0, float64(precision))
-	return math.Trunc(value * precisionDecimal + 0.5) / precisionDecimal
+	return math.Trunc(value*precisionDecimal+0.5) / precisionDecimal
+}
+
+func (l Loan) getLuxuryItemCount(luxuryItemCost float64) int {
+	return int(l.GetMonthlyPayment() / luxuryItemCost)
 }
 
 // GetDiscountFactorWithPrecisionLevel is the same as GetDiscountFactor but to a given precision level.
@@ -55,10 +59,25 @@ func (l Loan) GetDiscountFactorWithPrecisionLevel(precision int) float64 {
 
 // GetMonthlyPayment calculates the monthly payment
 func (l Loan) GetMonthlyPayment() float64 {
-	return round(float64(l.loanAmount.amount) / l.GetDiscountFactor(), 2)
+	return round(float64(l.loanAmount.amount)/l.GetDiscountFactor(), 2)
 }
 
 // GetTotalCost calculates the total repayed
 func (l Loan) GetTotalCost() float64 {
-	return round(l.GetMonthlyPayment() * float64(l.loanTime.months), 2)
+	return round(l.GetMonthlyPayment()*float64(l.loanTime.months), 2)
+}
+
+// GetBeerCount calculates the number of pints of beer corresponding to monthly payment
+func (l Loan) GetBeerCount() int {
+	return l.getLuxuryItemCount(3.67)
+}
+
+// GetCigarettePackCount calculates the number of pints of beer corresponding to monthly payment
+func (l Loan) GetCigarettePackCount() int {
+	return l.getLuxuryItemCount(10.8)
+}
+
+// GetPygmyGoatKidsCount calculates the number of pygmy goat kids corresponding to monthly payment
+func (l Loan) GetPygmyGoatKidsCount() int {
+	return l.getLuxuryItemCount(120)
 }
