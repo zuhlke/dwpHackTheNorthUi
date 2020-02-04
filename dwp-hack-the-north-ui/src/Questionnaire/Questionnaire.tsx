@@ -13,8 +13,6 @@ import {Dispatch} from "redux";
 import {InMemoryQuestionRepository, QuestionRepository} from "./Question/QuestionRepo";
 import Loader from "react-loader-spinner"
 
-const LOCAL = false;
-
 function getQuestionFromArray(questionId: string | undefined, listOfQuestions: Question[]): Question| undefined {
     let result: Question | undefined = undefined;
     if (questionId !== undefined) {
@@ -49,7 +47,7 @@ export const Questionnaire: FC = () => {
     const questionState: QuestionState = useSelector((state: ReducerState) => state.questions);
     const question: Question | undefined = getQuestionFromArray(questionId, questionState.questions);
     if (!questionState.busy && questionState.questions.length === 0) {
-        if (LOCAL) {
+        if (process.env.REACT_APP_LOAN_CALCULATOR_LOCAL) {
             const questionRepo: QuestionRepository = InMemoryQuestionRepository.createDefaultInstance();
             dispatch(recordQuestions(questionRepo.getAll()));
         } else {

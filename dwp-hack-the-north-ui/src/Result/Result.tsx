@@ -9,8 +9,6 @@ import {RecordResultsActions, ResultState} from "../reducers/ResultReducer";
 import {getResults} from "./ResultActions";
 import {Loan, LoanCalculator} from "./Calculator/Loan";
 
-const LOCAL = false;
-
 export interface Result {
     monthlyPayment: number;
     totalCost: number;
@@ -41,7 +39,7 @@ const Content: FC = () => {
                     <li>Loan Interest Rate: {questionState.interest.getAnnualRate() * 100}%</li>
                     <li>Loan Length: {questionState.time.getMonthsTime()} Months</li>
                     <br/><br/>
-                    { LOCAL ?
+                    {process.env.REACT_APP_LOAN_CALCULATOR_LOCAL ?
                         <div>
                             <li>Incremental Payment: £{loanCalculator.getIncrementPaymentCost().toFixed(2)}</li>
                             <li>Total Cost: £{loanCalculator.getTotalPaymentCost().toFixed(2)}</li>
