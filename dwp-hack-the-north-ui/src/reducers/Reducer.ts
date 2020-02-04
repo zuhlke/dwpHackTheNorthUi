@@ -1,15 +1,15 @@
-import {questionReducer, QuestionState, RECORD_QUESTIONS, RecordQuestionsActions} from "./QuestionReducer";
+import {questionReducer, QuestionState, RECORD_QUESTIONS, QuestionActions, RETRIEVING_QUESTIONS} from "./QuestionReducer";
 import {
     RECORD_LOAN_AMOUNT,
     RECORD_LOAN_INTEREST,
     RECORD_LOAN_TIME,
-    RecordLoanActions,
+    AnswerActions,
     answerReducer,
     AnswerState
 } from "./AnswerReducer";
 import {RecordResultsActions, resultReducer, ResultState, RECORD_RESULTS} from "./ResultReducer";
 
-export type AllActions = RecordLoanActions | RecordQuestionsActions | RecordResultsActions;
+export type AllActions = AnswerActions | QuestionActions | RecordResultsActions;
 
 export interface ReducerState {
     answers: AnswerState;
@@ -19,7 +19,7 @@ export interface ReducerState {
 
 export const initialState: ReducerState = {
     answers: {},
-    questions: {questions:[]},
+    questions: {questions:[], busy: false},
     results: {}
 };
 
@@ -31,12 +31,13 @@ export const reducer = (state: ReducerState = initialState, action: AllActions):
         case RECORD_LOAN_INTEREST:
         case RECORD_LOAN_TIME:
             result = Object.assign({}, state, {
-                answers: answerReducer(state.answers, action as RecordLoanActions)
+                answers: answerReducer(state.answers, action as AnswerActions)
             });
             break;
+        case RETRIEVING_QUESTIONS:
         case RECORD_QUESTIONS:
             result = Object.assign({}, state, {
-                questions: questionReducer(state.questions, action as RecordQuestionsActions)
+                questions: questionReducer(state.questions, action as QuestionActions)
             });
             break;
         case RECORD_RESULTS:

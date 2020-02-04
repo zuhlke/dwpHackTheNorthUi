@@ -4,9 +4,9 @@ import {App} from './App';
 import {createStore} from 'redux';
 import {initialState, ReducerState} from './reducers/Reducer';
 import {Provider} from 'react-redux';
-import {RECORD_LOAN_AMOUNT, RecordLoanActions} from "./reducers/AnswerReducer";
+import {RECORD_LOAN_AMOUNT, AnswerActions} from "./reducers/AnswerReducer";
 
-const testReducer = (state: ReducerState = initialState, action: RecordLoanActions): ReducerState => {
+const testReducer = (state: ReducerState = initialState, action: AnswerActions): ReducerState => {
   let result = state;
 
   if (action.type === RECORD_LOAN_AMOUNT) {

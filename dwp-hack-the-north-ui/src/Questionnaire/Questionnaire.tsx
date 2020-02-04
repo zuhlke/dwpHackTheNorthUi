@@ -6,11 +6,12 @@ import {Question} from './Question/Question';
 import {UndefinedQuestion} from "./UndefinedQuestion";
 import {DefinedQuestion} from "./DefinedQuestion";
 import {useDispatch, useSelector} from "react-redux";
-import {QuestionState, RecordQuestionsActions, recordQuestions} from "../reducers/QuestionReducer";
+import {QuestionState, QuestionActions, recordQuestions} from "../reducers/QuestionReducer";
 import {ReducerState} from "../reducers/Reducer";
 import {getQuestions} from "./QuestionnaireActions";
 import {Dispatch} from "redux";
 import {InMemoryQuestionRepository, QuestionRepository} from "./Question/QuestionRepo";
+import Loader from "react-loader-spinner"
 
 const LOCAL = false;
 
@@ -31,8 +32,8 @@ function getQuestionFromArray(questionId: string | undefined, listOfQuestions: Q
     return result;
 }
 
-function getPageBreadcrumbProps(question: Question | undefined): BreadcrumbListProps {
-    const currentQuestion: string = (question === undefined) ? "Unknown Question" : "Question " + question.getId();
+function getPageBreadcrumbProps(question: Question | undefined, busy: boolean): BreadcrumbListProps {
+    const currentQuestion: string = busy ? "Retrieving questions" : question === undefined ? "Unknown Question" : "Question " + question.getId();
     const navCurrentProps: BreadcrumbCurrentProps = { visibleText: currentQuestion };
     const navParentProps: BreadcrumbListItemProps[] = [
         { href: "/", visibleText: "Home: Loan Calculator" },
@@ -44,10 +45,10 @@ function getPageBreadcrumbProps(question: Question | undefined): BreadcrumbListP
 
 export const Questionnaire: FC = () => {
     const {questionId} = useParams();
-    const dispatch: Dispatch<RecordQuestionsActions> = useDispatch();
+    const dispatch: Dispatch<QuestionActions> = useDispatch();
     const questionState: QuestionState = useSelector((state: ReducerState) => state.questions);
     const question: Question | undefined = getQuestionFromArray(questionId, questionState.questions);
-    if (questionState.questions.length === 0) {
+    if (!questionState.busy && questionState.questions.length === 0) {
         if (LOCAL) {
             const questionRepo: QuestionRepository = InMemoryQuestionRepository.createDefaultInstance();
             dispatch(recordQuestions(questionRepo.getAll()));
@@ -57,8 +58,10 @@ export const Questionnaire: FC = () => {
     }
 
     return (
-        <MainContent breadcrumbData={getPageBreadcrumbProps(question)}
-            reactiveContent = {question === undefined ?
+        <MainContent breadcrumbData={getPageBreadcrumbProps(question, questionState.busy)}
+            reactiveContent = {questionState.busy ?
+                                  <Loader type="ThreeDots"/>
+                               : question === undefined ?
                                   <UndefinedQuestion/> :
                                   <DefinedQuestion question={question}/>
                               } />

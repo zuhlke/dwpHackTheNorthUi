@@ -17,7 +17,7 @@ interface RecordLoanTimeAction extends Action {
     payload: LoanTime;
 }
 
-export type RecordLoanActions = RecordLoanAmountAction | RecordLoanInterestAction | RecordLoanTimeAction;
+export type AnswerActions = RecordLoanAmountAction | RecordLoanInterestAction | RecordLoanTimeAction;
 
 export function recordLoanAmount(userInput: string): RecordLoanAmountAction {
     const userInputNumeral = parseInt(userInput);
@@ -52,7 +52,7 @@ export interface AnswerState {
     time?: LoanTime;
 }
 
-export const answerReducer = (state: AnswerState, action: RecordLoanActions): AnswerState => {
+export const answerReducer = (state: AnswerState, action: AnswerActions): AnswerState => {
     let result: AnswerState;
 
     switch (action.type) {

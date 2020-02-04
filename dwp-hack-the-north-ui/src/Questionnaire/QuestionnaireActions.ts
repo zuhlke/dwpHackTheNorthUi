@@ -1,8 +1,10 @@
 import {Dispatch} from "redux";
-import {RecordQuestionsActions, recordQuestions} from "../reducers/QuestionReducer";
+import {QuestionActions, recordQuestions, retrievingQuestions} from "../reducers/QuestionReducer";
 import {Question} from "./Question/Question";
 
-export function getQuestions(dispatch: Dispatch<RecordQuestionsActions>) {
+export function getQuestions(dispatch: Dispatch<QuestionActions>) {
+
+    dispatch(retrievingQuestions());
 
     fetch('https://k9s9szlula.execute-api.eu-west-2.amazonaws.com/dev/questions', {
         method: "GET",

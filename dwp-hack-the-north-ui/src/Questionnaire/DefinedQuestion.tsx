@@ -5,7 +5,7 @@ import {History} from "history";
 import {useHistory} from "react-router-dom";
 import {InMemoryQuestionRepository, QuestionRepository} from "./Question/QuestionRepo";
 import {useDispatch} from "react-redux";
-import {recordLoanAmount, recordLoanInterest, RecordLoanActions, recordLoanTime} from "../reducers/AnswerReducer";
+import {recordLoanAmount, recordLoanInterest, AnswerActions, recordLoanTime} from "../reducers/AnswerReducer";
 
 const questionRepo: QuestionRepository = InMemoryQuestionRepository.createDefaultInstance();
 const questionCount = questionRepo.getQuestionCount();
@@ -19,8 +19,8 @@ const handleTextChange = (userInput: string,
     setValue(userInput);
 };
 
-function generateLoanSegment(questionId: number, userInput: string): RecordLoanActions | undefined {
-    let result: RecordLoanActions | undefined = undefined;
+function generateLoanSegment(questionId: number, userInput: string): AnswerActions | undefined {
+    let result: AnswerActions | undefined = undefined;
 
     switch (questionId) {
         case 1:
@@ -42,9 +42,9 @@ function generateLoanSegment(questionId: number, userInput: string): RecordLoanA
 const handleQuestionResponse = (question: Question,
                                 value: string,
                                 setValue: (value: string) => void,
-                                dispatch: Dispatch<RecordLoanActions>,
+                                dispatch: Dispatch<AnswerActions>,
                                 history: History): void => {
-    const loanSegment: RecordLoanActions | undefined = generateLoanSegment(question.getId(), value);
+    const loanSegment: AnswerActions | undefined = generateLoanSegment(question.getId(), value);
     if (loanSegment !== undefined) {
         setValue("");
         dispatch(loanSegment);
@@ -58,7 +58,7 @@ const handleQuestionResponse = (question: Question,
 };
 
 export const DefinedQuestion: FC<QuestionProps> = (props: QuestionProps) => {
-    const dispatch: Dispatch<RecordLoanActions> = useDispatch();
+    const dispatch: Dispatch<AnswerActions> = useDispatch();
     const history: History = useHistory();
     const [value, setValue] = useState("");
     return (
