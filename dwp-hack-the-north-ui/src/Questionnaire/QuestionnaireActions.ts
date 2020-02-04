@@ -24,7 +24,7 @@ export function getQuestions(dispatch: Dispatch<QuestionActions>): void {
         .then((myJson) => {
             const questions: Question[] = [];
             for (const question of myJson) {
-                questions.push(Question.ofJson(question));
+                questions.push(Question.of(question.Id, question.Text));
             }
             dispatch(recordQuestions(questions))
         }).catch((error) => {
