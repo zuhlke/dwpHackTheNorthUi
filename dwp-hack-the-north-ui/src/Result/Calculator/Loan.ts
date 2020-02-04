@@ -146,6 +146,6 @@ export class Loan implements LoanCalculator {
     }
 
     private getLuxuryItemCount(luxuryItemCost: number): number {
-        return Math.ceil(this.getIncrementPaymentCost() / luxuryItemCost);
+        return Math.floor(this.getIncrementPaymentCost() / luxuryItemCost);
     }
 }

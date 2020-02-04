@@ -1,5 +1,13 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## Environment Variables
+- REACT_APP_LOAN_CALCULATOR_LOCAL
+  Set to 'true' when you wish to utilise the in memory variants of the external infrastructure the project uses.
+  Keep as undefined or 'false' when you wish to utilise the AWS API Gateways using the Golang backend defined within the [Lambda Folder](lambda/)
+
+You can do this inline within bash whilst executing yarn start with the following:
+`REACT_APP_LOAN_CALCULATOR_LOCAL=true yarn start`
+
 ## Available Scripts
 
 In the project directory, you can run:

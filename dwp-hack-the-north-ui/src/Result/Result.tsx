@@ -29,8 +29,34 @@ const Content: FC = () => {
     const resultState: ResultState = useSelector( (state: ReducerState) => state.results);
     const questionState: AnswerState = useSelector((state: ReducerState) => state.answers);
     if (questionState.amount !== undefined && questionState.interest !== undefined && questionState.time !== undefined) {
-        const loanCalculator: LoanCalculator = Loan.of(questionState.amount, questionState.interest, questionState.time);
-        getResults(dispatch, questionState);
+        let pintsOfBeer, cigarettePacks, pygmyGoatKids: number;
+        let monthlyPayment: string, totalCost: string;
+
+        if (process.env.REACT_APP_LOAN_CALCULATOR_LOCAL) {
+            const loanCalculator: LoanCalculator = Loan.of(questionState.amount, questionState.interest, questionState.time);
+
+            monthlyPayment = loanCalculator.getIncrementPaymentCost().toFixed(2);
+            totalCost = loanCalculator.getTotalPaymentCost().toFixed(2);
+
+            pintsOfBeer = loanCalculator.getBeerCount();
+            cigarettePacks = loanCalculator.getCigarettePackCount();
+            pygmyGoatKids = loanCalculator.getPygmyGoatKidCount();
+
+        } else {
+            getResults(dispatch, questionState);
+            pintsOfBeer = 0;
+            cigarettePacks = 0;
+            pygmyGoatKids = 0;
+
+            if (resultState.result === undefined) {
+                monthlyPayment = "I'M BROKE";
+                totalCost = "I'M NOT WELL";
+            } else {
+                monthlyPayment = resultState.result.monthlyPayment.toFixed(2);
+                totalCost = resultState.result.totalCost.toFixed(2);
+            }
+        }
+
         result = (
             <div>
                 <h1 className="govuk-heading-x1">Your Questionnaire Results</h1>
@@ -39,16 +65,15 @@ const Content: FC = () => {
                     <li>Loan Interest Rate: {questionState.interest.getAnnualRate() * 100}%</li>
                     <li>Loan Length: {questionState.time.getMonthsTime()} Months</li>
                     <br/><br/>
-                    {process.env.REACT_APP_LOAN_CALCULATOR_LOCAL ?
-                        <div>
-                            <li>Incremental Payment: £{loanCalculator.getIncrementPaymentCost().toFixed(2)}</li>
-                            <li>Total Cost: £{loanCalculator.getTotalPaymentCost().toFixed(2)}</li>
-                        </div>
-                        : <div>
-                            <li>Incremental Payment: £{resultState.result?.monthlyPayment.toFixed(2)}</li>
-                            <li>Total Cost: £{resultState.result?.totalCost.toFixed(2)} </li>
-                        </div>
-                    }
+
+                    <li>Incremental Payment: £{monthlyPayment}</li>
+                    <li>Total Cost: £{totalCost}</li>
+                    <br/>
+
+                    <li>Monthly payment conversions: </li>
+                    <ul>Pints of beer: {pintsOfBeer}</ul>
+                    <ul>Packs of cigarettes: {cigarettePacks}</ul>
+                    <ul>Number of pygmy goat kids(!!!): {pygmyGoatKids}</ul>
                 </ul>
             </div>
         );

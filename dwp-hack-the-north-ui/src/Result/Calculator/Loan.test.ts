@@ -47,13 +47,13 @@ test('Can return a total cost based on Loan amount, time and interest rate', asy
 }, 100);
 
 test('Can return the equivalent of the monthly payment in average priced pints of beer', async () => {
-    expect(loanOne.getBeerCount()).toBe(164);
+    expect(loanOne.getBeerCount()).toBe(163);
 }, 100);
 
 test('Can return the equivalent of the monthly payment in average priced packs of cigarettes', async () => {
-    expect(loanOne.getCigarettePackCount()).toBe(56);
+    expect(loanOne.getCigarettePackCount()).toBe(55);
 }, 100);
 
 test('Can return the equivalent of the monthly payment in average priced pygmy goat kids', async () => {
-    expect(loanOne.getPygmyGoatKidCount()).toBe(5);
+    expect(loanOne.getPygmyGoatKidCount()).toBe(4);
 }, 100);
