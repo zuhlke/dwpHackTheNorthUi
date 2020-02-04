@@ -90,6 +90,9 @@ export interface LoanCalculator {
     getIncrementPaymentCost(): number;
     getPeriodicPayments(): number;
     getTotalPaymentCost(): number;
+    getBeerCount(): number;
+    getCigarettePackCount(): number;
+    getPygmyGoatKidCount(): number;
 }
 
 export class Loan implements LoanCalculator {
@@ -128,5 +131,21 @@ export class Loan implements LoanCalculator {
 
     public getTotalPaymentCost(): number {
         return Number((this.getIncrementPaymentCost() * this.getPeriodicPayments()).toFixed(2));
+    }
+
+    public getBeerCount(): number {
+        return this.getLuxuryItemCount(3.67);
+    }
+
+    public getCigarettePackCount(): number {
+        return this.getLuxuryItemCount(10.80);
+    }
+
+    public getPygmyGoatKidCount(): number {
+        return this.getLuxuryItemCount(120);
+    }
+
+    private getLuxuryItemCount(luxuryItemCost: number): number {
+        return Math.ceil(this.getIncrementPaymentCost() / luxuryItemCost);
     }
 }

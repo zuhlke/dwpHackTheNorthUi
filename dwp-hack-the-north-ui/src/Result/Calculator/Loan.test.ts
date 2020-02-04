@@ -26,7 +26,6 @@ test('Loan Interest Rates can be obtained annually and monthly', async () => {
     expect(twelvePercentAnnual.getAnnualRate()).toBe(twelvePercentMonthly.getAnnualRate());
 }, 100);
 
-
 test('Loans have a total number of periodic payments, based on the number of payments a year and the number of years', async () => {
     expect(loanOne.getPeriodicPayments()).toBe(360);
 }, 100);
@@ -45,4 +44,16 @@ test('Loans can return a cost per increment based on Loan amount, time and inter
 
 test('Can return a total cost based on Loan amount, time and interest rate', async () => {
     expect(loanOne.getTotalPaymentCost()).toBe(215838);
+}, 100);
+
+test('Can return the equivalent of the monthly payment in average priced pints of beer', async () => {
+    expect(loanOne.getBeerCount()).toBe(164);
+}, 100);
+
+test('Can return the equivalent of the monthly payment in average priced packs of cigarettes', async () => {
+    expect(loanOne.getCigarettePackCount()).toBe(56);
+}, 100);
+
+test('Can return the equivalent of the monthly payment in average priced pygmy goat kids', async () => {
+    expect(loanOne.getPygmyGoatKidCount()).toBe(5);
 }, 100);
