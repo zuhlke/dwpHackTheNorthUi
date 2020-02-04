@@ -4,11 +4,11 @@ import apigateway = require("@aws-cdk/aws-apigateway");
 import {App, Construct, Stack} from "@aws-cdk/core";
 
 export interface LambdaStackProps {
-    srcDir: string
-    handler: string
-    uri: string
-    dbName: string
-    collection: string
+    srcDir: string;
+    handler: string;
+    uri: string;
+    dbName: string;
+    collection: string;
 }
 
 class LambdaAndApiGatewayConstruct extends Construct {
