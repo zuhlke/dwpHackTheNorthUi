@@ -4,10 +4,10 @@ import {Provider} from 'react-redux';
 import {createStore, Store} from 'redux';
 import {App} from './App';
 import './index.scss';
-import {Actions, reducer, ReducerState} from './reducers/Reducer';
+import {AllActions, reducer, ReducerState} from './reducers/Reducer';
 import * as serviceWorker from './serviceWorker';
 
-const reducerState: Store<ReducerState, Actions> = createStore(reducer);
+const reducerState: Store<ReducerState, AllActions> = createStore(reducer);
 
 ReactDOM.render(
     <Provider store={reducerState}>

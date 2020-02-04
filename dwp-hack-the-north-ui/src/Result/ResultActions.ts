@@ -1,8 +1,9 @@
 import {Dispatch} from "redux";
-import {Result, ResultActions, storeResults} from "../reducers/ResultReducer";
-import {UserInputState} from "../reducers/UserInputReducer";
+import {RecordResultsActions, storeResults} from "../reducers/ResultReducer";
+import {AnswerState} from "../reducers/AnswerReducer";
+import {Result} from "./Result";
 
-export function getResults(dispatch: Dispatch<ResultActions>, answers: UserInputState) {
+export function getResults(dispatch: Dispatch<RecordResultsActions>, answers: AnswerState) {
 
     fetch('https://k9s9szlula.execute-api.eu-west-2.amazonaws.com/dev/loanresult', {
         method: "POST",

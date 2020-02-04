@@ -1,47 +1,47 @@
-import {questionReducer, QuestionState, SAVE_QUESTIONS, StoreActions} from "./QuestionReducer";
+import {questionReducer, QuestionState, RECORD_QUESTIONS, RecordQuestionsActions} from "./QuestionReducer";
 import {
-    LOAN_SEGMENT_AMOUNT,
-    LOAN_SEGMENT_INTEREST,
-    LOAN_SEGMENT_TIME,
-    LoanSegmentActions,
-    userInputReducer,
-    UserInputState
-} from "./UserInputReducer";
-import {ResultActions, resultReducer, ResultState, SAVE_RESULTS} from "./ResultReducer";
+    RECORD_LOAN_AMOUNT,
+    RECORD_LOAN_INTEREST,
+    RECORD_LOAN_TIME,
+    RecordLoanActions,
+    answerReducer,
+    AnswerState
+} from "./AnswerReducer";
+import {RecordResultsActions, resultReducer, ResultState, RECORD_RESULTS} from "./ResultReducer";
 
-export type Actions = LoanSegmentActions | StoreActions | ResultActions;
+export type AllActions = RecordLoanActions | RecordQuestionsActions | RecordResultsActions;
 
 export interface ReducerState {
-    userInput: UserInputState;
+    answers: AnswerState;
     questions: QuestionState;
     results: ResultState;
 }
 
-const initialState: ReducerState = {
-    userInput: {},
+export const initialState: ReducerState = {
+    answers: {},
     questions: {questions:[]},
     results: {}
 };
 
-export const reducer = (state: ReducerState = initialState, action: Actions): ReducerState => {
+export const reducer = (state: ReducerState = initialState, action: AllActions): ReducerState => {
     let result: ReducerState;
 
     switch (action.type) {
-        case LOAN_SEGMENT_AMOUNT:
-        case LOAN_SEGMENT_INTEREST:
-        case LOAN_SEGMENT_TIME:
+        case RECORD_LOAN_AMOUNT:
+        case RECORD_LOAN_INTEREST:
+        case RECORD_LOAN_TIME:
             result = Object.assign({}, state, {
-                userInput: userInputReducer(state.userInput, action)
+                answers: answerReducer(state.answers, action as RecordLoanActions)
             });
             break;
-        case SAVE_QUESTIONS:
+        case RECORD_QUESTIONS:
             result = Object.assign({}, state, {
-                questions: questionReducer(state.questions, action)
+                questions: questionReducer(state.questions, action as RecordQuestionsActions)
             });
             break;
-        case SAVE_RESULTS:
+        case RECORD_RESULTS:
             result = Object.assign({}, state, {
-                results: resultReducer(state.results, action)
+                results: resultReducer(state.results, action as RecordResultsActions)
             });
             break;
         default:

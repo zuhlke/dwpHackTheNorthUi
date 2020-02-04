@@ -2,17 +2,18 @@ import React from 'react';
 import {render} from '@testing-library/react';
 import {App} from './App';
 import {createStore} from 'redux';
-import {LOAN_SEGMENT_AMOUNT, LoanSegment, UserInputState} from './reducers/Reducer';
+import {initialState, ReducerState} from './reducers/Reducer';
 import {Provider} from 'react-redux';
+import {RECORD_LOAN_AMOUNT, RecordLoanActions} from "./reducers/AnswerReducer";
 
-const testReducer = (state: UserInputState = {}, action: LoanSegment): UserInputState => {
+const testReducer = (state: ReducerState = initialState, action: RecordLoanActions): ReducerState => {
   let result = state;
 
-  if (action.type === LOAN_SEGMENT_AMOUNT) {
+  if (action.type === RECORD_LOAN_AMOUNT) {
     result = Object.assign({}, state, {
       amount: action.payload,
-      interest: state.interest,
-      time: state.time
+      interest: state.answers.interest,
+      time: state.answers.time
     });
   }
 

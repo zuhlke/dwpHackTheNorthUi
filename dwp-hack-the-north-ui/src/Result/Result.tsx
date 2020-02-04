@@ -3,13 +3,18 @@ import {useDispatch, useSelector} from 'react-redux';
 import {BreadcrumbListProps} from '../common/Breadcrumb/Breadcrumb';
 import {MainContent} from '../common/Content/MainContent';
 import {ReducerState} from '../reducers/Reducer';
-import {UserInputState} from "../reducers/UserInputReducer";
+import {AnswerState} from "../reducers/AnswerReducer";
 import {Dispatch} from "redux";
-import {ResultActions, ResultState} from "../reducers/ResultReducer";
+import {RecordResultsActions, ResultState} from "../reducers/ResultReducer";
 import {getResults} from "./ResultActions";
 import {Loan, LoanCalculator} from "./Calculator/Loan";
 
 const LOCAL = false;
+
+export interface Result {
+    monthlyPayment: number;
+    totalCost: number;
+}
 
 function getBreadcrumbInformation(): BreadcrumbListProps {
     return {
@@ -21,10 +26,10 @@ function getBreadcrumbInformation(): BreadcrumbListProps {
 }
 
 const Content: FC = () => {
-    const dispatch: Dispatch<ResultActions> = useDispatch();
+    const dispatch: Dispatch<RecordResultsActions> = useDispatch();
     let result = (<div/>);
     const resultState: ResultState = useSelector( (state: ReducerState) => state.results);
-    const questionState: UserInputState = useSelector((state: ReducerState) => state.userInput);
+    const questionState: AnswerState = useSelector((state: ReducerState) => state.answers);
     if (questionState.amount !== undefined && questionState.interest !== undefined && questionState.time !== undefined) {
         const loanCalculator: LoanCalculator = Loan.of(questionState.amount, questionState.interest, questionState.time);
         getResults(dispatch, questionState);

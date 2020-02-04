@@ -5,7 +5,7 @@ import {History} from "history";
 import {useHistory} from "react-router-dom";
 import {InMemoryQuestionRepository, QuestionRepository} from "./Question/QuestionRepo";
 import {useDispatch} from "react-redux";
-import {loanAmount, loanInterest, LoanSegmentActions, loanTime} from "../reducers/UserInputReducer";
+import {recordLoanAmount, recordLoanInterest, RecordLoanActions, recordLoanTime} from "../reducers/AnswerReducer";
 
 const questionRepo: QuestionRepository = InMemoryQuestionRepository.createDefaultInstance();
 const questionCount = questionRepo.getQuestionCount();
@@ -19,18 +19,18 @@ const handleTextChange = (userInput: string,
     setValue(userInput);
 };
 
-function generateLoanSegment(questionId: number, userInput: string): LoanSegmentActions | undefined {
-    let result: LoanSegmentActions | undefined = undefined;
+function generateLoanSegment(questionId: number, userInput: string): RecordLoanActions | undefined {
+    let result: RecordLoanActions | undefined = undefined;
 
     switch (questionId) {
         case 1:
-            result = loanAmount(userInput);
+            result = recordLoanAmount(userInput);
             break;
         case 2:
-            result = loanInterest(userInput);
+            result = recordLoanInterest(userInput);
             break;
         case 3:
-            result = loanTime(userInput);
+            result = recordLoanTime(userInput);
             break;
         default:
             break;
@@ -42,9 +42,9 @@ function generateLoanSegment(questionId: number, userInput: string): LoanSegment
 const handleQuestionResponse = (question: Question,
                                 value: string,
                                 setValue: (value: string) => void,
-                                dispatch: Dispatch<LoanSegmentActions>,
+                                dispatch: Dispatch<RecordLoanActions>,
                                 history: History): void => {
-    const loanSegment: LoanSegmentActions | undefined = generateLoanSegment(question.getId(), value);
+    const loanSegment: RecordLoanActions | undefined = generateLoanSegment(question.getId(), value);
     if (loanSegment !== undefined) {
         setValue("");
         dispatch(loanSegment);
@@ -58,7 +58,7 @@ const handleQuestionResponse = (question: Question,
 };
 
 export const DefinedQuestion: FC<QuestionProps> = (props: QuestionProps) => {
-    const dispatch: Dispatch<LoanSegmentActions> = useDispatch();
+    const dispatch: Dispatch<RecordLoanActions> = useDispatch();
     const history: History = useHistory();
     const [value, setValue] = useState("");
     return (

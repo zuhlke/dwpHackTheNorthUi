@@ -1,22 +1,17 @@
 import {Action} from 'redux';
-import {Actions} from "./Reducer";
+import {Result} from "../Result/Result";
 
-export const SAVE_RESULTS = "SAVE_RESULTS";
+export const RECORD_RESULTS = "RECORD_RESULTS";
 
-export interface Result {
-    monthlyPayment: number;
-    totalCost: number;
-}
-
-interface SaveResultsAction extends Action {
+interface RecordResultsAction extends Action {
     payload: Result;
 }
 
-export type ResultActions = SaveResultsAction;
+export type RecordResultsActions = RecordResultsAction;
 
-export function storeResults(result: Result): ResultActions {
+export function storeResults(result: Result): RecordResultsActions {
     return {
-        type: SAVE_RESULTS,
+        type: RECORD_RESULTS,
         payload: result
     };
 }
@@ -25,17 +20,14 @@ export interface ResultState {
     result?: Result;
 }
 
-export const resultReducer =  (state: ResultState, action: Actions): ResultState => {
+export const resultReducer =  (state: ResultState, action: RecordResultsActions): ResultState => {
     let result: ResultState;
-    switch (action.type) {
-        case SAVE_RESULTS:
-            result = Object.assign({}, state, {
-                result: action.payload,
-            });
-            break;
-        default:
-            result = state;
-            break;
+    if (action.type === RECORD_RESULTS) {
+        result = Object.assign({}, state, {
+            result: action.payload,
+        });
+    } else {
+        result = state;
     }
 
     return result;

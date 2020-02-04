@@ -1,8 +1,8 @@
 import {Dispatch} from "redux";
-import {StoreActions, storeQuestions} from "../reducers/QuestionReducer";
+import {RecordQuestionsActions, recordQuestions} from "../reducers/QuestionReducer";
 import {Question} from "./Question/Question";
 
-export function getQuestions(dispatch: Dispatch<StoreActions>) {
+export function getQuestions(dispatch: Dispatch<RecordQuestionsActions>) {
 
     fetch('https://k9s9szlula.execute-api.eu-west-2.amazonaws.com/dev/questions', {
         method: "GET",
@@ -24,7 +24,7 @@ export function getQuestions(dispatch: Dispatch<StoreActions>) {
             for (const question of myJson) {
                 questions.push(Question.ofJson(question));
             }
-            dispatch(storeQuestions(questions))
+            dispatch(recordQuestions(questions))
         }).catch((error) => {
         console.log("Something went wrong " + error.message)
     })

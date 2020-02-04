@@ -1,18 +1,17 @@
 import {Action} from 'redux';
 import {Question} from "../Questionnaire/Question/Question";
-import {Actions} from "./Reducer";
 
-export const SAVE_QUESTIONS = "SAVE_QUESTIONS";
+export const RECORD_QUESTIONS = "RECORD_QUESTIONS";
 
-export interface StoreQuestionsAction extends Action {
+export interface RecordQuestionsAction extends Action {
     payload: Question[];
 }
 
-export type StoreActions = StoreQuestionsAction;
+export type RecordQuestionsActions = RecordQuestionsAction;
 
-export function storeQuestions(questions: Question[]): StoreQuestionsAction {
+export function recordQuestions(questions: Question[]): RecordQuestionsAction {
     return {
-        type: SAVE_QUESTIONS,
+        type: RECORD_QUESTIONS,
         payload: questions
     };
 }
@@ -21,17 +20,14 @@ export interface QuestionState {
     questions: Question[];
 }
 
-export const questionReducer =  (state: QuestionState, action: Actions): QuestionState => {
+export const questionReducer =  (state: QuestionState, action: RecordQuestionsActions): QuestionState => {
     let result: QuestionState;
-    switch (action.type) {
-        case SAVE_QUESTIONS:
-            result = Object.assign({}, state, {
-                questions: action.payload,
-            });
-            break;
-        default:
-            result = state;
-            break;
+    if (action.type === RECORD_QUESTIONS) {
+        result = Object.assign({}, state, {
+            questions: action.payload,
+        });
+    } else {
+        result = state;
     }
 
     return result;
