@@ -3,8 +3,8 @@ import {App, RemovalPolicy, Stack} from "@aws-cdk/core";
 import {BucketDeployment, Source} from "@aws-cdk/aws-s3-deployment";
 
 export interface HostingBucketProps {
-    bucketName: string
-    sourcePath: string
+    bucketName: string;
+    sourcePath: string;
 }
 
 export class HostingBucketStack extends Stack {
@@ -25,7 +25,8 @@ export class HostingBucketStack extends Stack {
 
             deploymentBucket.grantPublicAccess()
         } else {
-            console.error('ERROR: Bucket name and source path for the frontend must be provided')
+            console.error('ERROR: Bucket name and source path for the frontend must be provided');
+            throw new Error('ERROR: Bucket name and source path for the frontend must be provided');
         }
 
     }
