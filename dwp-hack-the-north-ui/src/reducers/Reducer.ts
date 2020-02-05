@@ -7,7 +7,7 @@ import {
     answerReducer,
     AnswerState
 } from "./AnswerReducer";
-import {RecordResultsActions, resultReducer, ResultState, RECORD_RESULTS} from "./ResultReducer";
+import {RecordResultsActions, resultReducer, ResultState, RECORD_RESULTS, RETRIEVE_RESULTS} from "./ResultReducer";
 
 export type AllActions = AnswerActions | QuestionActions | RecordResultsActions;
 
@@ -20,7 +20,7 @@ export interface ReducerState {
 export const initialState: ReducerState = {
     answers: {},
     questions: {questions:[], busy: false},
-    results: {}
+    results: {busy: false}
 };
 
 export const reducer = (state: ReducerState = initialState, action: AllActions): ReducerState => {
@@ -40,6 +40,7 @@ export const reducer = (state: ReducerState = initialState, action: AllActions):
                 questions: questionReducer(state.questions, action as QuestionActions)
             });
             break;
+        case RETRIEVE_RESULTS:
         case RECORD_RESULTS:
             result = Object.assign({}, state, {
                 results: resultReducer(state.results, action as RecordResultsActions)

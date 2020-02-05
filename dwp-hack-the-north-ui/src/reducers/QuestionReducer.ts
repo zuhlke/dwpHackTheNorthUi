@@ -4,9 +4,9 @@ import {Question} from "../Questionnaire/Question/Question";
 export const RETRIEVING_QUESTIONS = "RETRIEVING_QUESTIONS";
 export const RECORD_QUESTIONS = "RECORD_QUESTIONS";
 
-export type RetrievingQuestionsAction = Action;
+type RetrievingQuestionsAction = Action;
 
-export interface RecordQuestionsAction extends Action {
+interface RecordQuestionsAction extends Action {
     payload: Question[];
 }
 

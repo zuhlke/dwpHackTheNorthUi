@@ -1,10 +1,11 @@
 import {Dispatch} from "redux";
-import {RecordResultsActions, storeResults} from "../reducers/ResultReducer";
+import {RecordResultsActions, storeResults, retrieveResults} from "../reducers/ResultReducer";
 import {AnswerState} from "../reducers/AnswerReducer";
 import {Result} from "./Result";
 import { LoanCalculator, Loan } from "./Calculator/Loan";
 
 export function getResults(dispatch: Dispatch<RecordResultsActions>, answers: AnswerState): void {
+    dispatch(retrieveResults());
     if (process.env.REACT_APP_LOAN_CALCULATOR_LOCAL) {
         if (answers.amount !== undefined && answers.interest !== undefined && answers.time !== undefined) {
             const loanCalculator: LoanCalculator = Loan.of(answers.amount, answers.interest, answers.time);

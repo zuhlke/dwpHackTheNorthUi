@@ -7,6 +7,7 @@ import {AnswerState} from "../reducers/AnswerReducer";
 import {Dispatch} from "redux";
 import {RecordResultsActions, ResultState} from "../reducers/ResultReducer";
 import {getResults} from "./ResultActions";
+import Loader from 'react-loader-spinner';
 
 export interface Result {
     monthlyPayment: number;
@@ -32,8 +33,9 @@ const Content: FC = () => {
     const answerState: AnswerState = useSelector((state: ReducerState) => state.answers);
     useEffect(() => getResults(dispatch, answerState), [dispatch, answerState]);
     if (answerState.amount !== undefined && answerState.interest !== undefined && answerState.time !== undefined) {
-        result = (
-            <div>
+        result = resultState.busy ?
+                <Loader type="ThreeDots"/>
+            : <div>
                 <h1 className="govuk-heading-x1">Your Questionnaire Results</h1>
                 <ul className="govuk-list govuk-list--bullet">
                     <li>Loan Amount: £{answerState.amount.getTotal().toFixed(2)}</li>
@@ -51,7 +53,6 @@ const Content: FC = () => {
                     <ul>Number of pygmy goat kids(!!!): {resultState.result?.pygmyGoatKids}</ul>
                 </ul>
             </div>
-        );
     }
 
     return result;
