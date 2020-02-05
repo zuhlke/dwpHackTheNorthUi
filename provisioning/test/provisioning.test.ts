@@ -1,4 +1,3 @@
-import {expect as expectCDK, MatchStyle, matchTemplate} from '@aws-cdk/assert';
 import * as cdk from '@aws-cdk/core';
 import {HostingBucketStack} from "../lib/hosting-bucket-stack";
 
