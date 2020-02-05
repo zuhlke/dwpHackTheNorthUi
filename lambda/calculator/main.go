@@ -1,8 +1,6 @@
 package main
 
 import (
-	"context"
-
 	"github.com/aws/aws-lambda-go/lambda"
 )
 
@@ -20,7 +18,7 @@ type LoanResult struct {
 	PygmyGoatKids  int     `json:"pygmyGoatKids"`
 }
 
-func HandleRequest(ctx context.Context, request LoanRequest) (LoanResult, error) {
+func HandleRequest(request LoanRequest) (LoanResult, error) {
 	var loan = Loan{
 		loanAmount:   LoanAmount{request.LoanAmount},
 		loanInterest: LoanInterest{annualCompound: request.LoanInterest},
