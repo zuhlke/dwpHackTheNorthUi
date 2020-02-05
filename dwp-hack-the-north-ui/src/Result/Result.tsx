@@ -12,6 +12,9 @@ import {Loan, LoanCalculator} from "./Calculator/Loan";
 export interface Result {
     monthlyPayment: number;
     totalCost: number;
+    beerPints: number;
+    cigarettePacks: number;
+    pygmyGoatKids: number;
 }
 
 function getBreadcrumbInformation(): BreadcrumbListProps {
@@ -34,26 +37,27 @@ const Content: FC = () => {
 
         if (process.env.REACT_APP_LOAN_CALCULATOR_LOCAL) {
             const loanCalculator: LoanCalculator = Loan.of(questionState.amount, questionState.interest, questionState.time);
-
             monthlyPayment = loanCalculator.getIncrementPaymentCost().toFixed(2);
             totalCost = loanCalculator.getTotalPaymentCost().toFixed(2);
-
             pintsOfBeer = loanCalculator.getBeerCount();
             cigarettePacks = loanCalculator.getCigarettePackCount();
             pygmyGoatKids = loanCalculator.getPygmyGoatKidCount();
 
         } else {
             getResults(dispatch, questionState);
-            pintsOfBeer = 0;
-            cigarettePacks = 0;
-            pygmyGoatKids = 0;
 
             if (resultState.result === undefined) {
                 monthlyPayment = "I'M BROKE";
                 totalCost = "I'M NOT WELL";
+                pintsOfBeer = 0;
+                cigarettePacks = 0;
+                pygmyGoatKids = 0;
             } else {
                 monthlyPayment = resultState.result.monthlyPayment.toFixed(2);
                 totalCost = resultState.result.totalCost.toFixed(2);
+                pintsOfBeer = resultState.result.beerPints;
+                cigarettePacks = resultState.result.cigarettePacks;
+                pygmyGoatKids = resultState.result.pygmyGoatKids;
             }
         }
 

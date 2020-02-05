@@ -22,7 +22,13 @@ export function getResults(dispatch: Dispatch<RecordResultsActions>, answers: An
             })
         })
         .then((myJson) => {
-            const result: Result = { monthlyPayment: myJson.monthlyPayment, totalCost: myJson.totalCost };
+            const result: Result = {
+                monthlyPayment: myJson.monthlyPayment,
+                totalCost: myJson.totalCost,
+                beerPints: myJson.beerPints,
+                cigarettePacks: myJson.cigarettePacks,
+                pygmyGoatKids: myJson.pygmyGoatKids
+            };
             dispatch(storeResults(result));
         }).catch((error) => {
         console.log("Something went wrong " + error.message)
