@@ -1,4 +1,4 @@
-import React, {FC} from 'react';
+import React, {FC, useEffect} from 'react';
 import {useParams} from 'react-router-dom';
 import {BreadcrumbCurrentProps, BreadcrumbListItemProps, BreadcrumbListProps} from '../common/Breadcrumb/Breadcrumb';
 import {MainContent} from '../common/Content/MainContent';
@@ -6,11 +6,10 @@ import {Question} from './Question/Question';
 import {UndefinedQuestion} from "./UndefinedQuestion";
 import {DefinedQuestion} from "./DefinedQuestion";
 import {useDispatch, useSelector} from "react-redux";
-import {QuestionState, QuestionActions, recordQuestions} from "../reducers/QuestionReducer";
+import {QuestionState, QuestionActions} from "../reducers/QuestionReducer";
 import {ReducerState} from "../reducers/Reducer";
 import {getQuestions} from "./QuestionnaireActions";
 import {Dispatch} from "redux";
-import {InMemoryQuestionRepository, QuestionRepository} from "./Question/QuestionRepo";
 import Loader from "react-loader-spinner"
 
 function getQuestionFromArray(questionId: string | undefined, listOfQuestions: Question[]): Question| undefined {
@@ -46,14 +45,7 @@ export const Questionnaire: FC = () => {
     const dispatch: Dispatch<QuestionActions> = useDispatch();
     const questionState: QuestionState = useSelector((state: ReducerState) => state.questions);
     const question: Question | undefined = getQuestionFromArray(questionId, questionState.questions);
-    if (!questionState.busy && questionState.questions.length === 0) {
-        if (process.env.REACT_APP_LOAN_CALCULATOR_LOCAL) {
-            const questionRepo: QuestionRepository = InMemoryQuestionRepository.createDefaultInstance();
-            dispatch(recordQuestions(questionRepo.getAll()));
-        } else {
-            getQuestions(dispatch);
-        }
-    }
+    useEffect(() => getQuestions(dispatch), [dispatch]);
 
     return (
         <MainContent breadcrumbData={getPageBreadcrumbProps(question, questionState.busy)}
