@@ -7,7 +7,6 @@ import {AnswerState} from "../reducers/AnswerReducer";
 import {Dispatch} from "redux";
 import {RecordResultsActions, ResultState} from "../reducers/ResultReducer";
 import {getResults} from "./ResultActions";
-import {Loan, LoanCalculator} from "./Calculator/Loan";
 
 export interface Result {
     monthlyPayment: number;
@@ -30,54 +29,28 @@ const Content: FC = () => {
     const dispatch: Dispatch<RecordResultsActions> = useDispatch();
     let result = (<div/>);
     const resultState: ResultState = useSelector( (state: ReducerState) => state.results);
-    const questionState: AnswerState = useSelector((state: ReducerState) => state.answers);
-    if (questionState.amount !== undefined && questionState.interest !== undefined && questionState.time !== undefined) {
-        let pintsOfBeer, cigarettePacks, pygmyGoatKids: number;
-        let monthlyPayment: string, totalCost: string;
-
-        if (process.env.REACT_APP_LOAN_CALCULATOR_LOCAL) {
-            const loanCalculator: LoanCalculator = Loan.of(questionState.amount, questionState.interest, questionState.time);
-            monthlyPayment = loanCalculator.getIncrementPaymentCost().toFixed(2);
-            totalCost = loanCalculator.getTotalPaymentCost().toFixed(2);
-            pintsOfBeer = loanCalculator.getBeerCount();
-            cigarettePacks = loanCalculator.getCigarettePackCount();
-            pygmyGoatKids = loanCalculator.getPygmyGoatKidCount();
-
-        } else {
-            getResults(dispatch, questionState);
-
-            if (resultState.result === undefined) {
-                monthlyPayment = "I'M BROKE";
-                totalCost = "I'M NOT WELL";
-                pintsOfBeer = 0;
-                cigarettePacks = 0;
-                pygmyGoatKids = 0;
-            } else {
-                monthlyPayment = resultState.result.monthlyPayment.toFixed(2);
-                totalCost = resultState.result.totalCost.toFixed(2);
-                pintsOfBeer = resultState.result.beerPints;
-                cigarettePacks = resultState.result.cigarettePacks;
-                pygmyGoatKids = resultState.result.pygmyGoatKids;
-            }
+    const answerState: AnswerState = useSelector((state: ReducerState) => state.answers);
+    if (answerState.amount !== undefined && answerState.interest !== undefined && answerState.time !== undefined) {
+        if (resultState.result === undefined) {
+            getResults(dispatch, answerState);
         }
-
         result = (
             <div>
                 <h1 className="govuk-heading-x1">Your Questionnaire Results</h1>
                 <ul className="govuk-list govuk-list--bullet">
-                    <li>Loan Amount: £{questionState.amount.getTotal().toFixed(2)}</li>
-                    <li>Loan Interest Rate: {questionState.interest.getAnnualRate() * 100}%</li>
-                    <li>Loan Length: {questionState.time.getMonthsTime()} Months</li>
+                    <li>Loan Amount: £{answerState.amount.getTotal().toFixed(2)}</li>
+                    <li>Loan Interest Rate: {answerState.interest.getAnnualRate() * 100}%</li>
+                    <li>Loan Length: {answerState.time.getMonthsTime()} Months</li>
                     <br/><br/>
 
-                    <li>Incremental Payment: £{monthlyPayment}</li>
-                    <li>Total Cost: £{totalCost}</li>
+                    <li>Incremental Payment: £{resultState.result?.monthlyPayment}</li>
+                    <li>Total Cost: £{resultState.result?.totalCost}</li>
                     <br/>
 
                     <li>Monthly payment conversions: </li>
-                    <ul>Pints of beer: {pintsOfBeer}</ul>
-                    <ul>Packs of cigarettes: {cigarettePacks}</ul>
-                    <ul>Number of pygmy goat kids(!!!): {pygmyGoatKids}</ul>
+                    <ul>Pints of beer: {resultState.result?.beerPints}</ul>
+                    <ul>Packs of cigarettes: {resultState.result?.cigarettePacks}</ul>
+                    <ul>Number of pygmy goat kids(!!!): {resultState.result?.pygmyGoatKids}</ul>
                 </ul>
             </div>
         );
