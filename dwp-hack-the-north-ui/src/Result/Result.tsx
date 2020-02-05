@@ -1,4 +1,4 @@
-import React, {FC} from 'react';
+import React, {FC, useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {BreadcrumbListProps} from '../common/Breadcrumb/Breadcrumb';
 import {MainContent} from '../common/Content/MainContent';
@@ -30,10 +30,8 @@ const Content: FC = () => {
     let result = (<div/>);
     const resultState: ResultState = useSelector( (state: ReducerState) => state.results);
     const answerState: AnswerState = useSelector((state: ReducerState) => state.answers);
+    useEffect(() => getResults(dispatch, answerState), [dispatch, answerState]);
     if (answerState.amount !== undefined && answerState.interest !== undefined && answerState.time !== undefined) {
-        if (resultState.result === undefined) {
-            getResults(dispatch, answerState);
-        }
         result = (
             <div>
                 <h1 className="govuk-heading-x1">Your Questionnaire Results</h1>
