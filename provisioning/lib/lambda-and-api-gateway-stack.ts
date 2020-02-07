@@ -46,9 +46,9 @@ class LambdaAndApiGatewayConstruct extends Construct {
 
     addDatabaseEnvironmentVariables(props: LambdaStackProps, handler: lambda.Function): void {
         if (props.uri && props.dbName && props.collection) {
-            handler.addEnvironment("URI", props.uri!);
-            handler.addEnvironment("DATABASE_NAME", props.dbName!);
-            handler.addEnvironment("COLLECTION", props.collection!);
+            handler.addEnvironment("URI", props.uri);
+            handler.addEnvironment("DATABASE_NAME", props.dbName);
+            handler.addEnvironment("COLLECTION", props.collection);
         }
     }
 
