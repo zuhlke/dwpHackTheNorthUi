@@ -17,7 +17,7 @@ const lambdas: LambdaStackProps[] = [
         collection: ''
     },
     {
-        functionName: 'getLoanLambda',
+        functionName: 'getLoan',
         resourceName: 'loan',
         srcDir: '../../lambda/calculator',
         handler: "main"
