@@ -37,7 +37,7 @@ The result of the survey is then shown to the end user.
 
 ## Future Work
 The following are the future work required to harden the security of the application and infrastructure, and enable disaster recovery.
-* Create VPC for the deployment infrastructure.
+* Create a VPC for the deployment infrastructure.
 * Create a VPC peering between the deployment infrastructure and `MongoDB Atlas` environment.
 * Create a disaster recovery strategy for all the components in the infrastructure.
 
