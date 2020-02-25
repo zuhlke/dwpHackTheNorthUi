@@ -1,6 +1,13 @@
 # dwpHackTheNorthUi
 This application is a prep work for the 2019 Hack The North Event
 
+## Objectives
+* Help vulnerable people to understand and manage their finances.
+* Help vulnerable people to manage different income sources (i.e., benefits payments, local authorities, and charities). 
+* Help vulnerable people to save money.
+* Help vulnerable people to predict their finances based on life time event (i.e., divorce, losing a job, family loss).
+
+
 ## Technologies
 - Frontend: React/TypeScript, Progressive Web Application (PWA)
 - Backend: Go
