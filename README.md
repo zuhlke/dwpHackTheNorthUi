@@ -9,7 +9,7 @@ This application is a prep work for the 2019 Hack The North Event
 
 
 ## Technologies
-- Frontend: React/TypeScript, Progressive Web Application (PWA)
+- Frontend: React/TypeScript, Progressive Web Application (PWA), GOV.UK Design System (GDS) styling
 - Backend: Go
 - Database: MongoDB Atlas
 - Deployment: AWS Cloud Development Kit (CDK) in TypeScript
